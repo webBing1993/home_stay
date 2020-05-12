@@ -1,0 +1,240 @@
+/* pages/facilityDetail/index.wxss */
+@import '../../utils/common.wxss';
+
+.facilityDetail {
+
+}
+
+.facilityDetail .header_tabs {
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+  left: 0;
+  background: #fff;
+}
+
+.facilityDetail .header_tabs .tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #D8D8D8;
+}
+
+.facilityDetail .header_tabs .tabs .tab {
+  color: #999;
+  font-size: 28rpx;
+  display: inline-flex;
+  width: 50%;
+  padding: 30rpx 0;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.facilityDetail .header_tabs .tabs .tab.active {
+  color: #4378BA;
+}
+
+.facilityDetail .header_tabs .tabs .tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4378BA;
+  width: 112rpx;
+  height: 6rpx;
+}
+
+.facilityDetail .header_tabs .search_tabs {
+  padding: 30rpx;
+}
+
+.facilityDetail .header_tabs .search_tabs .section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.facilityDetail .header_tabs .search_tabs picker {
+  border: 1px solid #D8D8D8;
+  border-radius: 2px;
+  width: 43%;
+  text-align: center;
+}
+
+.facilityDetail .header_tabs .search_tabs picker .picker {
+  padding: 8rpx 0;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.facilityDetail .header_tabs .search_tabs .searchTabs {
+  padding: 30rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.facilityDetail .header_tabs .search_tabs .searchTabs .tab {
+  margin-right: 30rpx;
+  background: #F0F0F0;
+  border: 1px solid #D6D6D6;
+  padding: 20rpx 40rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.facilityDetail .header_tabs .search_tabs .searchTabs .tab.active {
+  background: #4378BA;
+  color: #fff;
+}
+
+.facilityDetail .header_tabs .header_tip {
+  background: #F3F5F7;
+  padding: 22rpx 30rpx;
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.facilityDetail .facilityDetail_container {
+
+}
+
+.facilityDetail .facilityDetail_container .lists {
+  background: #fff;
+  padding-left: 30rpx;
+}
+
+.facilityDetail .facilityDetail_container .lists .list {
+  padding: 40rpx 30rpx 40rpx 0;
+  border-bottom: 1px solid #D8D8D8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.facilityDetail .facilityDetail_container .lists .list .name {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.facilityDetail .facilityDetail_container .lists .list .value {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.facilityDetail .open_container {
+  width: 100%;
+  position: relative;
+}
+
+.facilityDetail .open_container .bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  z-index: -1;
+}
+
+.facilityDetail .open_container .bg image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.facilityDetail .open_container .open_title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 40%;
+  z-index: 1;
+}
+
+.facilityDetail .open_container .open_title .openBg {
+  display: inline-block;
+  width: 236rpx;
+  height: 236rpx;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 38%);
+}
+
+.facilityDetail .open_container .open_title .openBg image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.facilityDetail .open_container .openBg.openHover image {
+  transform: scale(1.1);
+}
+
+.facilityDetail .open_container .title_tip {
+  padding-top: 77rpx;
+  text-align: center;
+}
+
+.facilityDetail .open_container .title_tip .title {
+  font-size: 72rpx;
+  color: #333333;
+  font-family: DINCondensed-Bold;
+  margin-bottom: 24rpx;
+}
+
+.facilityDetail .open_container .title_tip .tip {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.facilityDetail .open_container .open_tip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45%;
+  z-index: 1;
+  text-align: center;
+}
+
+.facilityDetail .open_container .open_tip .open_text_dool {
+  font-size: 44rpx;
+  color: #FFFFFF;
+  margin-bottom: 32rpx;
+}
+
+.facilityDetail .open_container .open_tip .open_text_tip {
+  font-size: 30rpx;
+  color: #FFFFFF;
+}
+
+.facilityDetail  .noMsg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.facilityDetail .noMsg .tip {
+  margin-bottom: 80rpx;
+  text-align: center;
+}
+
+.facilityDetail .noMsg .tip image {
+  width: 174rpx;
+  height: 200rpx;
+  margin: 0 auto 64rpx;
+}
+
+.facilityDetail .noMsg .tip text {
+  display: block;
+  color: #999999;
+  font-size: 28rpx;
+  text-align: center;
+}

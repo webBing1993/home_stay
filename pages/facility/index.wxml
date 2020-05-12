@@ -1,0 +1,68 @@
+<!--pages/facility/index.wxml-->
+<navbar
+  back="true"
+  title="设备管理"
+>
+</navbar>
+<view class="facility" style="padding-top: {{ navBarHeight }}px">
+  <view class="header_search" style="top: {{ navBarHeight }}px">
+    <view class="searchTab">
+      <view class="list">
+        <text class="name">房源</text>
+        <view class="value">
+          <picker  range-key="{{'name'}}" data-index="{{ index }}" bindchange="bindPickerChange" value="{{index}}" range="{{ houseList }}">
+            <view class="picker">
+              {{ houseList[houseVal].name }}
+            </view>
+            <image src="../../utils/images/gengduo.png"></image>
+          </picker>
+        </view>
+      </view>
+      <view class="h20"></view>
+      <view class="list">
+          <text class="name">房号</text>
+          <view class="value">
+            <input value='{{ roomNo }}' placeholder="请输入房号" bindinput="inputChange"></input>
+            <image src="../../utils/images/sousuo.png" bindtap="searchInput"></image>
+          </view>
+        </view>
+        <view class="h20"></view>
+    </view>
+  </view>
+  <view class="facility_container" style="padding-top: {{ headerHeight}}px; min-height: calc(100vh - {{ headerHeight }}px);height: calc(100vh - {{ headerHeight }}px); height: {{ containerHeight }}">
+    <scroll-view scroll-y="{{true}}" style="height: 100%" bindscrolltolower="scrollbot" lower-threshold='100'>
+      <view class="lists" wx:for='{{ dataList }}'>
+        <view class="list" id='{{ item.id }}' bindtap="handleDetail" data-roomNo='{{ item.roomName }}' data-roomId="{{ item.roomId }}">
+          <view class="list_container">
+            <view class="list_l">
+              <image src="{{ item.status == 0 ? '../../utils/images/dadianchihong.png' : item.status == 1 ? '../../utils/images/dadianchihu.png' : '../../utils/images/dadianchilv.png' }}"></image>
+            </view>
+            <view class="list_r">
+              <view class="list_fl">
+                <view class="title">{{ item.roomName }}</view>
+                <view class="electric">当前电压：{{ item.voltage }}</view>
+              </view>
+              <view class="list_fr">
+                <image src="../../utils/images/gengduo.png"></image>
+              </view>
+            </view>
+          </view>
+          <view class="list_footer">
+            <view class="{{ item.status == 0 ? 'hongColor' : item.status == 1 ? 'huiColor' : 'lvColor' }}">{{ item.battery }}%</view>
+            <view class="{{ item.status== 2 ? 'hongColor footer_fr' : 'footer_fr' }}">
+              <text>更新时间</text>
+              <text>{{ item.updateTime }}</text>
+            </view>
+          </view>
+        </view>
+        <view class="h20"></view>
+      </view>
+    </scroll-view>
+    <view class="noMsg" wx:if='{{ dataList.length == 0 }}'>
+      <view class="tip">
+        <image src="../../utils/images/zanwushuju.png"></image>
+        <text>暂无数据</text>
+      </view>
+    </view>
+  </view>
+</view>

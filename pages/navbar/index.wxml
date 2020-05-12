@@ -1,0 +1,22 @@
+<view
+  class="navbar"
+  style="height: {{navBarHeight}}px;background: {{background}};color: {{titleColor}};"
+>
+  <view class='title'>{{title}}</view>
+
+  <view class='capsule' bindtap='back'>
+    <image
+      wx:if="{{back}}"
+      mode="aspectFit"
+      src='../../utils/images/left.png'
+    ></image>
+    <text>返回</text>
+  </view>
+</view>
+<!-- 
+<view
+  class="page"
+  style="top: {{navBarHeight}}px;"
+>
+  <slot></slot>
+</view> -->

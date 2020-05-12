@@ -1,0 +1,44 @@
+<!--pages/pending/index.wxml-->
+<navbar
+  back="true"
+  title="待办通知"
+>
+</navbar>
+<view class="pending" style="padding-top:{{ navBarHeight }}px">
+    <view class="h20"></view>
+    <scroll-view scroll-y="{{true}}" style="max-height: 100px)" bindscrolltolower="scrollbot">
+         <view class="lists" wx:for='{{ dataList }}'>
+            <view class="list">
+                <view class="title_time">
+                    <text class="title">{{ type == 'TENANT_REGISTER' ? '住客登记通知' : type == 'CHECKOUT_APPLY' ? '住客退房通知' : type == 'LOW_BATTERY' ? '设备电量不足' : '住客未登记通知' }}</text>
+                    <text class="time">{{ item.time }}</text>
+                </view>
+                <view class="container_lists">
+                    <view class="li">
+                        <text class="name">房源名称：</text>
+                        <text class="value">{{ item.roomGroupName }}</text>
+                    </view>
+                    <view class="li">
+                        <text class="name">房间号：</text>
+                        <text class="value">{{ item.roomName }}</text>
+                    </view>
+                    <view class="li" wx:if='{{ type != "NONE_REGISTER_GUEST" }}'>
+                        <text class="name">入住人：</text>
+                        <text class="value">{{ item.guestName }}</text>
+                    </view>
+                </view>
+                <view class="tip" wx:if='{{ type == "NONE_REGISTER_GUEST" }}'>*登记人数与实际入住人数可能不符，请及时确认 </view>
+                <view class="btn-area">
+                    <view><button data-linkId="{{ item.linkId }}" id="{{ item.id }}" bindtap="lookDetail">立即查看</button></view>
+                </view>
+            </view>
+            <view class="h20"></view>
+        </view>
+        <view class="noMsg" wx:if='{{ dataList.length == 0 }}'>
+            <view class="tip">
+              <image src="../../utils/images/zanwushuju.png"></image>
+              <text>暂无数据</text>
+            </view>
+          </view>
+    </scroll-view>
+</view>

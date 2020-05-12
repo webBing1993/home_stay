@@ -1,0 +1,147 @@
+/* pages/install/index.wxss */
+@import '../../utils/common.wxss';
+
+.install {
+   
+}
+
+.install .searchBar {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.install .searchBar .search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 0 30rpx;
+    width: calc(100% - 60rpx);
+    height: 88rpx;
+}
+
+.install .searchBar text {
+    width: 22%;
+    font-size: 30rpx;
+    color: #333333;
+}
+
+.install .searchBar .search_input {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 75%;
+}
+
+.install .searchBar .search_input input {
+    font-size: 30rpx;
+    color: #333333;
+}
+
+.install .searchBar .search_input image {
+    width: 36rpx;
+    height: 36rpx;
+}
+
+.install .install_container {
+    padding-bottom: 128rpx;
+}
+
+.install .install_container .lists {
+
+}
+
+.install .install_container .lists .list {
+    padding-left: 30rpx;
+    background: #fff;
+}
+
+.install .install_container .lists .list .time_id {
+    border-bottom: 1px solid #D8D8D8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30rpx 30rpx 30rpx 0;
+}
+
+.install .install_container .lists .list .time_id text:first-of-type {
+    font-size: 26rpx;
+}
+
+.install .install_container .lists .list .time_id text:last-of-type {
+    font-size: 24rpx;
+    color: #999999;
+}
+
+.install .install_container .lists .list .li {
+    display: flex;
+    padding: 34rpx 30rpx 54rpx 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.install .install_container .lists .list .li .li_l .name {
+    font-size: 28rpx;
+    color: #333333;
+    margin-bottom: 16rpx;
+}
+
+.install .install_container .lists .list .li .li_l .address {
+    font-size: 28rpx;
+    color: #999999;
+}
+
+.install .install_container .lists .list .li .li_r  {
+    font-size: 28rpx;
+    display: inline-flex;
+    align-items: center;
+}
+
+.install .install_container .lists .list .li .li_r image {
+    width: 14rpx;
+    height: 24rpx;
+    margin-left: 12rpx;
+}
+
+.install .btn-area {
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 60rpx);
+    left: 0;
+    padding: 0 30rpx 30rpx;
+    background: #fff;
+    z-index: 9;
+}
+
+.install .btn-area button {
+    background: #4378BA;
+    border-radius: 10rpx;
+    line-height: 98rpx;
+    font-size: 34rpx;
+    width: 100%;
+    color: #FFFFFF;
+    padding: 0;
+}
+
+.install .noMsg {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 1;
+}
+
+.install .noMsg image {
+    width: 174rpx;
+    height: 200rpx;
+    margin-bottom: 64rpx;
+}
+
+.install text {
+    font-size: 28rpx;
+    color: #999999;
+    display: block;
+}

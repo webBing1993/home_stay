@@ -1,0 +1,93 @@
+/**login.wxss**/
+.login {
+    text-align: left;
+    padding-top: 60rpx;
+  }
+  
+  .login .title {
+    padding: 60rpx;
+    font-family: PingFangSC-Medium;
+    font-size: 40rpx;
+    color: #333333;
+    letter-spacing: 0;
+  }
+  
+  .login .lists {
+    padding-left: 30rpx;
+  }
+  
+  .login .list {
+    position: relative;
+    padding-left: 30rpx;
+    border-bottom: 1px solid #D8D8D8;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+  
+  .login .list input {
+    font-size: 30rpx;
+    height: 110rpx;
+    color: #333333;
+    border: none;
+    outline: none;
+    background: none;
+  }
+
+  .login .list .input_phone {
+    position: relative;
+  }
+
+  .login .list .getPhone {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    font-size: 30rpx;
+    color: #999;
+    line-height: 1;
+    font-weight: 400;
+    padding: 0.7rem 0;
+    height: auto;
+    text-align: left;
+  }
+  
+  .login .list image {
+    display: inline-block;
+    width: 32rpx;
+    height: 32rpx;
+    margin-right: 60rpx;
+  }
+  
+  .login .list button {
+    position: absolute;
+    right: 0;
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+    background: #fff;
+    border: none;
+    font-size: 30rpx;
+    color: #4378BA;
+    opacity: 1;
+    display: inline-block;
+    width: auto;
+  }
+  
+  .login .list button[disabled] {
+    opacity: .6
+  }
+  
+  .login .btn-area {
+    margin-top: 140rpx;
+    padding: 0 30rpx;
+  }
+  
+  .login .btn-area button {
+    background: #4378BA;
+    border-radius: 10rpx;
+    color: #fff;
+    font-size: 34rpx;
+    display: block;
+    line-height: 66rpx;
+    width: 100%;
+  }

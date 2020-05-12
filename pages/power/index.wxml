@@ -1,0 +1,42 @@
+<!--pages/power/index.wxml-->
+<navbar
+  back="true"
+  title="设置权限"
+>
+</navbar>
+<view class="power" style="padding-top: {{ navBarHeight }}px">
+  <view class="tree_lists">
+    <!-- 一级 -->
+    <checkbox-group class='one_tree' bindchange='oneTree'>
+      <label class="checkbox" wx:for="{{ nodes }}" name='houseList' id='{{ item.roomGroupId }}'>
+        <view class="label_box">
+          <view catchtap="">
+            <checkbox value="{{ item.roomGroupId }}" checked="{{ item.checked }}"/>
+            <text>{{item.roomGroupName}}</text>
+            <view class="lableImg" wx:if='{{ item.rooms && item.rooms.length != 0 }}' data-id="{{ item.roomGroupId }}" catchtap='changeOpenClose'>
+              <image src="{{ item.isClose ? '../../utils/images/zhankai.png' : '../../utils/images/shouqi.png' }}" ></image>
+            </view>
+          </view>
+        </view>
+        <!-- 二级 -->
+        <view class="two_tree" wx:if='{{ item.isClose }}'>
+          <checkbox-group class='one_tree'>
+            <label class="checkbox" wx:for="{{ item.rooms }}" wx:for-index="idx" wx:for-item="i" id='{{ i.roomId }}' catchtap='checkboxTwoChange'>
+              <view class="label_box">
+                <view>
+                  <checkbox value="{{ i.roomId }}" checked="{{ i.checked }}"/>
+                  <text>{{i.roomName}}</text>
+                </view>
+              </view>
+            </label>
+          </checkbox-group>
+        </view>
+        <view class="h20"></view>
+      </label>
+    </checkbox-group>
+  </view>
+  <view class="btn-area">
+        <button bindtap="savePower" loading="{{ loading }}">保存</button>
+    </view>
+</view>
+

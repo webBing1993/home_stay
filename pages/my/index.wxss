@@ -1,0 +1,34 @@
+/* pages/my/index.wxss */
+@import '../../utils/common.wxss';
+
+.my {
+    /* padding-top: 64px; */
+}
+
+.my .myAccount {
+    padding: 40rpx 30rpx;
+}
+
+.my .myAccount .tip {
+    font-size: 28rpx;
+    color: #333333;
+    margin-bottom: 20rpx;
+}
+
+.my .myAccount .phone {
+    font-size: 28rpx;
+    color: #999999;
+}
+
+.my .btn-area {
+    
+}
+
+.my .btn-area button {
+    width: 100%;
+    border: none;
+    background: #fff;
+    font-size: 34rpx;
+    color: #4378BA;
+    line-height: 108rpx;
+}

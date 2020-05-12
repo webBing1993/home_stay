@@ -1,0 +1,4 @@
+/* pages/login1/index.wxss */
+button {
+  margin-top: 100px;
+}

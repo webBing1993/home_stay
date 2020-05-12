@@ -1,0 +1,74 @@
+<!--pages/addOrder/index.wxml-->
+<navbar
+  back="true"
+  title="创建预定单"
+>
+</navbar>
+<view class="addOrder" style="padding-top: {{ navBarHeight }}px">
+  <view class="h20"></view>
+  <form bindsubmit="saveBtn">
+    <view class="order_container">
+      <view class="lists">
+        <view class="list">
+          <text class="name">房源</text>
+          <picker bindchange="bindRegionChange" id='1' disabled="{{ editAdd == 1 ? true : false }}"  range-key="{{'name'}}" name="regin" range="{{ region }}" class="value">
+            <view class="picker">
+              <text>{{ region[detail.region].name }}</text>
+            </view>
+            <image src="../../utils/images/gengduo.png"></image>
+          </picker>
+        </view>
+        <view class="list">
+          <text class="name">预订人</text>
+          <view class="value">
+            <input placeholder="请输入预订人姓名" name='ownerName' value='{{ detail.ownerName }}'></input>
+          </view>
+        </view>
+        <view class="list">
+          <text class="name">联系方式</text>
+          <view class="value">
+            <input type="number" placeholder="请输入手机号" name='ownerMobile' value='{{ detail.ownerMobile }}'></input>
+          </view>
+        </view>
+        <view class="list timeList">
+          <text class="name">住离时间</text>
+          <view class="value">
+            <picker mode="date" value="{{ date }}" start="2020-01-01" end="2030-01-01" name='predictCheckinTime' bindchange="bindDateChange" id='1'>
+              <view class="picker">
+                {{ detail.predictCheckinTime }}
+              </view>
+            </picker>
+            <text>至</text>
+            <picker mode="date" value="{{ date }}" start="2020-01-01" end="2050-01-01" name='predictCheckoutTime' bindchange="bindDateChange" id='2'>
+              <view class="picker">
+                {{ detail.predictCheckoutTime }}
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="roomInfo">
+        <view class="info_title">房间信息</view>
+        <view class="roomLists">
+          <view class="list" wx:for='{{ detail.roomNum }}'>
+            <view class="name">
+              <image src="{{ index == 0 ? '../../utils/images/tianjia.png' : '../../utils/images/shanchu.png' }}" bindtap="{{ index == 0 ? 'addRoom' : 'deleteRoom' }}" id="{{ index }}" wx:if='{{ editAdd == 0 }}'></image>
+              <text>房间号</text>
+            </view>
+            <view class="value">
+              <picker bindchange="bindRegionChange"  range-key="{{'name'}}" id="2" data-index="{{ index }}" name="roomNum" range="{{ roomList }}" class="value">
+                <view class="picker">
+                  <text>{{ roomList[detail.roomNum[index]].name }}</text>
+                </view>
+                <image src="../../utils/images/gengduo.png"></image>
+              </picker>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="btn-area">
+      <button formType="submit" loading="{{ loading }}">保存</button>
+    </view>
+  </form>
+</view>

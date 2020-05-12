@@ -1,0 +1,52 @@
+<!--pages/addAccount/index.wxml-->
+<navbar
+  back="true"
+  title="{{ editAdd == 0 ? '添加员工' : '编辑' }}"
+>
+</navbar>
+<view class="addAccount" style="padding-top: {{ navBarHeight }}px">
+  <view class="h20"></view>
+  <form bindsubmit='saveBtn'>
+    <view class="lists">
+      <view class="list">
+        <text class="name">姓名</text>
+        <view class="value">
+          <input placeholder="请输入员工姓名" name='name' value="{{ name }}" auto-focus></input>
+        </view>
+      </view>
+      <view class="list">
+        <text class="name">手机号码</text>
+        <view class="value">
+          <input placeholder="输入的手机号为员工账号" name='phone' value="{{ phone }}" bindinput="bindKeyInput" maxlength="11"></input>
+        </view>
+      </view>
+      <view class="list nomargin">
+        <text class="name">验证码</text>
+        <view class="value">
+          <input placeholder="请输入验证码" name='code' maxlength="6"></input>
+          <button bindtap="getCode" wx:if='{{ timeOut }}' plain disabled="{{ disabled }}">{{ text }}</button>
+          <button plain wx:else disabled>{{ time }}s后重新获取</button>
+        </view>
+      </view>
+    </view>
+    <view class="h20"></view>
+    <!-- <view class="lists">
+      <view class="list">
+        <text>所属房源</text>
+      </view>
+      <checkbox-group bindchange="checkboxChange">
+        <label class="checkbox" wx:for="{{ houseList }}" name='houseList'>
+          <checkbox value="{{ item.houseName }}" checked="{{item.checked}}"/>{{item.houseName}}
+        </label>
+      </checkbox-group>
+    </view> -->
+    <view class="btn-area">
+        <button formType="submit" loading="{{ loading }}" wx:if='{{ editAdd == 0 }}'>保存</button>
+        <button wx:if='{{ editAdd != 0 }}' bindtap="deleteAccount">删除</button>
+        <button formType="submit" loading="{{ loading }}" wx:if='{{ editAdd != 0 }}'>保存</button>
+    </view>
+  </form>
+  <mp-dialog title="提示" show="{{ dialogShow }}" bindbuttontap="tapDialogButton" buttons="{{ buttons }}">
+      <view>确认删除该员工</view>
+  </mp-dialog>
+</view>

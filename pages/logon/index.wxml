@@ -1,0 +1,46 @@
+<!--pages/logon/index.wxml-->
+<navbar
+  back="true"
+  title="身份认证"
+>
+</navbar>
+<view class="logon" style="padding-top: {{ navBarHeight }}px">
+    <view class="h20"></view>
+    <form bindsubmit='logon_in'>
+        <view class="lists">
+            <view class="list">
+                <view class="title">姓名</view>
+                <input type="text" name='name' placeholder="请输入姓名"></input>
+            </view>
+            <view class="list">
+                <view class="title">身份证号</view>
+                <input type="idcard" name='idcard' placeholder="请输入身份证号"></input>
+            </view>
+        </view>
+        <view class="h20"></view>
+        <view class="idCardLists">
+            <view class="title">拍摄您的二代身份证</view>
+            <view class="idCard_lists">
+                <view class="list">
+                    <view class="imgs" id="1" bindtap="touchphoto">
+                        <image src="../../utils/images/zhengmian.png" wx:if='{{ !zm }}'></image>
+                        <image src="../../utils/images/camera.png" wx:if='{{ !zm }}'></image>
+                        <image src="{{ zm }}" wx:else></image>
+                    </view>
+                    <view class="tip">点击拍摄人像面</view>
+                </view>
+                <view class="list">
+                    <view class="imgs" id="2" bindtap="touchphoto">
+                        <image src="../../utils/images/fanmian.png" wx:if='{{ !fm }}'></image>
+                        <image src="../../utils/images/camera.png" wx:if='{{ !fm }}'></image>
+                        <image src="{{ fm }}" wx:else></image>
+                    </view>
+                    <view class="tip">点击拍摄国徽面</view>
+                </view>
+            </view>
+        </view>
+        <view class="btn-area">
+            <button formType="submit" loading="{{ loading }}">提交认证</button>
+        </view>
+    </form>
+</view>

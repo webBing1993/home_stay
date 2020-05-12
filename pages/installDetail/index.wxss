@@ -1,0 +1,239 @@
+/* pages/installDetail/index.wxss */
+@import '../../utils//common.wxss';
+
+.installDetail {
+    /* padding-top: 64px; */
+    padding-bottom: 158rpx;
+}
+
+.installDetail .lists {
+    background: #fff;
+    padding-left: 30rpx;
+}
+
+.installDetail .lists .list {
+    border-bottom: 1px solid #EDEFF2;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 40rpx 0;
+}
+
+.installDetail .lists .list.pic {
+    border-bottom: none;
+}
+
+.installDetail .lists .list .name {
+    width: 22%;
+    font-size: 28rpx;
+    color: #333333;
+}
+
+.installDetail .lists .list .value {
+    padding-right: 30rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 78%;
+}
+
+.installDetail .lists .list .value.select {
+    font-size: 28rpx;
+    color: #333333;
+}
+
+.installDetail .lists .list .value text {
+    font-size: 28rpx;
+    color: #333333;
+}
+
+.installDetail .lists .list .value input {
+    font-size: 28rpx;
+    color: #333333;
+    width: 80%;
+}
+
+.installDetail .lists .list.pic .value text {
+    font-size: 24rpx;
+    color: #999999;
+}
+
+.installDetail .pics {
+    padding-bottom: 40rpx;
+}
+
+.installDetail .pics image {
+    width: 128rpx;
+    height: 128rpx;
+    margin-right: 30rpx;
+}
+
+.installDetail .btn-area {
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 60rpx);
+    left: 0;
+    background: #F3F5F7;
+    padding: 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.installDetail .btn-area button {
+    font-size: 34rpx;
+    line-height: 98rpx;
+    padding: 0;
+}
+
+.installDetail .btn-area button:first-of-type {
+    border: 2rpx solid #4378BA;
+    border-radius: 10rpx;
+    width: 45%;
+    background: #fff;
+    color: #4378BA;
+}
+
+.installDetail .btn-area button:last-of-type {
+    background: #4378BA;
+    border-radius: 10rpx;
+    color: #FFFFFF;
+    width: 45%;
+}
+
+.installDetail .btn-area button:only-of-type {
+    background: #4378BA;
+    border-radius: 10rpx;
+    width: 100%;
+    color: #FFFFFF;
+}
+
+.installDetail .red {
+    text-align: center;
+    background: #DEEDFF;
+    padding: 14rpx 0;
+    font-size: 26rpx;
+}
+
+.installDetail .green {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #DEEDFF;
+    padding: 14rpx 0;
+    font-size: 26rpx;
+}
+
+.installDetail .green image {
+    width: 24rpx;
+    height: 24rpx;
+}
+
+.installDetail .houseInstall {
+    position: fixed;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    z-index: 8;
+}
+
+.installDetail .houseInstall .tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 88rpx;
+}
+
+.installDetail .houseInstall .tabs view {
+    width: 50%;
+    display: inline-flex;
+    justify-content: center;
+    position: relative;
+    font-size: 28rpx;
+    color: #999999;
+    height: 100%;
+    align-items: center;
+}
+
+.installDetail .houseInstall .tabs view.active {
+    color: #4378BA;
+}
+
+.installDetail .houseInstall .tabs view.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4378BA;
+    height: 6rpx;
+    width: 112rpx;
+}
+
+.installDetail .activeTab {
+}
+
+.installDetail .tabLists {
+    background: #fff;
+    padding-left: 30rpx;
+}
+
+.installDetail .tabLists .list {
+    display: flex;
+    padding: 40rpx 30rpx 40rpx 0;
+    border-bottom: 1px solid #EDEFF2;
+}
+
+.installDetail .tabLists .list.noBottom {
+    border-bottom: none;
+}
+
+.installDetail .tabLists .list .name {
+    width: 22%;
+    font-size: 28rpx;
+    color: #333333;
+}
+
+.installDetail .tabLists .list .value text {
+    font-size: 28rpx;
+    color: #999999;
+}
+
+.installDetail .tabLists .list .value {
+    width: 78%;
+}
+
+.installDetail .tabLists .list .value input {
+    font-size: 28rpx;
+    color: #333333;
+}
+
+.installDetail .tabLists .pics {
+    padding: 0 30rpx 40rpx 0;
+}
+
+.installDetail .tabLists .pics image {
+    width: 100%;
+    height: 300rpx;
+}
+
+.installDetail .tabLists.picLists .list {
+    border-bottom: none;
+}
+
+.installDetail .tabLists.textarea {
+    padding: 42rpx 30rpx 74rpx;
+}
+
+.installDetail .tabLists.textarea .title {
+    font-size: 28rpx;
+    color: #333333;
+    margin-bottom: 30rpx;
+}
+
+.installDetail .tabLists.textarea textarea {
+    width: 100%;
+    height: 200rpx;
+    font-size: 28rpx;
+    color: #333333;
+}

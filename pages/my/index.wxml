@@ -1,0 +1,21 @@
+<!--pages/my/index.wxml-->
+<navbar
+  back="true"
+  title="我的"
+>
+</navbar>
+<view class="my" style="padding-top: {{ navBarHeight }}px">
+    <view class="h20"></view>
+    <view class="myAccount">
+        <view class="tip">当前登录账号</view>
+        <view class="phone">{{ phone }}</view>
+    </view>
+    <view class="h20"></view>
+    <view class="btn-area"> 
+        <button bindtap="loginOut" > 退出登录 </button>
+    </view>
+    <view class="h20"></view>
+    <mp-dialog title="提示" show="{{ dialogShow }}" bindbuttontap="tapDialogButton" buttons="{{ buttons }}">
+        <view>确认退出</view>
+    </mp-dialog>
+</view>

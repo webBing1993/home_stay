@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "mp-tabbar": "../components/tabbar/tabbar",
+    "navbar": "../navbar/index",
+    "mp-dialog": "../components/dialog/dialog"
+  },
+  "navigationBarTitleText" : "我的"
+}

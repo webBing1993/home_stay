@@ -1,0 +1,96 @@
+/* pages/logon/index.wxss */
+@import '../../utils/common.wxss';
+
+.logon {
+    /* padding-top: 64px; */
+}
+
+.logon .lists {
+    background-color: #fff;
+    padding-left: 40rpx;
+}
+
+.logon .lists .list {
+    border-bottom: 1px solid #EDEFF2;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.logon .lists .list .title {
+    text-align: left;
+    width: 30%;
+    color: #333;
+    font-size: 28rpx;
+}
+
+.logon .lists .list input {
+    color: #333;
+    font-size: 28rpx;
+    height: 108rpx;
+}
+
+.logon .idCardLists {
+    padding: 0 40rpx;
+}
+
+.logon .idCardLists .title {
+    padding: 40rpx 0;
+    color: #555;
+    font-size: 32rpx;
+    font-family: PingFangSC-Medium;
+}
+
+.logon .idCardLists .idCard_lists {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logon .idCardLists .idCard_lists .list {
+    width: 48%;
+}
+
+.logon .idCardLists .idCard_lists .list .imgs {
+    position: relative;
+    margin-bottom: 40rpx;
+}
+
+.logon .idCardLists .idCard_lists .list .imgs image:first-of-type {
+    width: 100%;
+    height: 200rpx;
+    display: flex;
+}
+
+.logon .idCardLists .idCard_lists .list .imgs image:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 64rpx;
+    height: 64rpx;
+}
+
+.logon .idCardLists .idCard_lists .list .tip {
+    font-size: 28rpx;
+    color: #666666;
+    text-align: center;
+}
+
+.logon .btn-area {
+    position: fixed;
+    width: calc(100% - 60rpx);
+    bottom: 30rpx;
+    padding: 0 30rpx;
+}
+
+.logon .btn-area button {
+    background: #4378BA;
+    border-radius: 10rpx;
+    color: #fff;
+    font-size: 34rpx;
+    display: block;
+    line-height: 98rpx;
+    width: 100%;
+  }

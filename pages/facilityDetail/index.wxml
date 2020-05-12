@@ -1,0 +1,83 @@
+<!--pages/facilityDetail/index.wxml-->
+<navbar
+  back="true"
+  title="{{ detail.roomNo }}"
+>
+</navbar>
+<view class="facilityDetail" style="padding-top: {{ navBarHeight }}px">
+  <view class="header_tabs" style="top: {{ navBarHeight }}px">
+    <view class="tabs">
+      <scroll-view scroll-x scroll-with-animation="500">
+        <view class="weui-tabs-bar__content">
+          <view class="{{ active == 1 ? 'active tab' : 'tab' }}" id="1" bindtap="handleTabClick">
+            <text>蓝牙开门</text>
+          </view>
+          <view class="{{ active == 2 ? 'active tab' : 'tab' }}" id="2" bindtap="handleTabClick">
+            <text>开门记录</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="search_tabs" wx:if='{{ active == 2 }}'>
+      <view class="section">
+        <picker mode="multiSelector" value="{{ startTime }}" bindchange="bindDateChange"  range="{{dateTimeArray}}" data-id="1">
+          <view class="picker">
+            {{dateTimeArray[0][startTime[0]]}}/{{dateTimeArray[1][startTime[1]]}}/{{dateTimeArray[2][startTime[2]]}} {{dateTimeArray[3][startTime[3]]}}:{{dateTimeArray[4][startTime[4]]}}
+          </view>
+        </picker>
+        至
+        <picker mode="multiSelector" value="{{ endTime }}" :start='{{ startTime }}' bindchange="bindDateChange"  range="{{dateTimeArray}}" data-id="2">
+          <view class="picker">
+            {{dateTimeArray[0][endTime[0]]}}/{{dateTimeArray[1][endTime[1]]}}/{{dateTimeArray[2][endTime[2]]}} {{dateTimeArray[3][endTime[3]]}}:{{dateTimeArray[4][endTime[4]]}}
+          </view>
+        </picker>
+      </view>
+      <view class="searchTabs">
+        <view class="{{ tabIndex == 1 ? 'tab active' : 'tab' }}" bindtap="tabChange" data-id="1">住客卡</view>
+        <view class="{{ tabIndex == 2 ? 'tab active' : 'tab' }}" bindtap="tabChange" data-id="2">员工卡</view>
+      </view>
+    </view>
+    <view class="header_tip" wx:if='{{ active == 2 }}'>开门记录</view>
+  </view>
+  <swiper class="facilityDetail_container" style="padding-top: {{ headerHeight }}px; min-height: calc(100vh - {{ headerHeight + navBarHeight }}px); height: {{ containerHeight }} ">
+    <swiper-item wx:key="title" wx:if='{{ active == 1 }}'>
+      <view class="open_container" style="min-height: calc(100vh - {{ headerHeight + navBarHeight }}px);">
+        <view class="open_title">
+          <view class="title_tip">
+            <view class="title">{{ detail.roomNo }}</view>
+            <view class="tip">—— 员工卡 ——</view>
+          </view>
+          <view class="openBg" hover-class="openHover" bindtap="openDool"  disabled="{{ openPowerClick }}">
+            <image src="../../utils/images/kaimen.png"></image>
+          </view>
+        </view>
+        <view class="bg">
+          <image src="../../utils/images/di.png"></image>
+        </view>
+        <view class="open_tip">
+          <view class="open_text_dool">点击开门</view>
+          <view class="open_text_tip">为确保开门成功，请靠近门锁</view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item wx:key="title" wx:if='{{ active == 2 }}'>
+      <scroll-view scroll-y="{{true}}" style="height: 100%" bindscrolltolower="scrollbot" lower-threshold='100'>
+        <view class='lists'>
+          <view class="list" wx:for="{{ detail.openList }}">
+            <text class="name">{{ item.userInfo }}</text>
+            <text class="value">{{ item.time }}</text>
+          </view>
+        </view>
+      </scroll-view>
+      <view class="noMsg" wx:if='{{ detail.openList.length == 0 }}'>
+        <view class="tip">
+          <image src="../../utils/images/zanwushuju.png"></image>
+          <text>暂无数据</text>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+  <mp-dialog title="提示" show="{{ showOneButtonDialog }}" bindbuttontap="tapDialogButton" buttons="{{ oneButton }}">
+        <view>{{ showText }}</view>
+    </mp-dialog>
+</view>

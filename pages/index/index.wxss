@@ -1,0 +1,128 @@
+/**index.wxss**/
+.home {
+  /* padding-top: 64px; */
+}
+
+.home swiper {
+  background: #4378BA;
+  padding: 40rpx 0 0;
+  height: 290rpx;
+}
+
+.home swiper swiper-item {
+  margin-right: 81rpx;
+  height: auto;
+  text-align: center;
+}
+
+.home swiper swiper-item:last-of-type {
+  margin-right: 0;
+}
+
+.home swiper swiper-item .swiper-item {
+  border-radius: 50%;
+  background-color: #fff;
+  width: 108rpx;
+  height: 108rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+
+.home swiper swiper-item:first-of-type .swiper-item image {
+  width: 44rpx;
+  height: 46rpx;
+}
+
+.home swiper swiper-item:nth-of-type(2) .swiper-item image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.home swiper swiper-item .title {
+  color: #fff;
+  font-size: 26rpx;
+}
+
+.home swiper swiper-item:nth-of-type(3) .swiper-item image {
+  width: 54rpx;
+  height: 46rpx;
+}
+
+.home swiper swiper-item:nth-of-type(4) .swiper-item image {
+  width: 51rpx;
+  height: 44rpx;
+}
+
+.home .pending_items {
+
+}
+
+.home .pending_items .title {
+  opacity: 0.4;
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  color: #000000;
+  padding: 20rpx 28rpx;
+}
+
+.home .pending_items .lists {
+  background-color: #fff; 
+}
+
+.home .pending_items .lists .list {
+  border-bottom: 1px solid #EDEFF2;
+  display: flex;
+  padding: 0 30rpx;
+  align-items: center;
+  justify-content: space-between;
+  height: 90rpx;
+}
+
+.home .pending_items .lists .list .list_l,
+.home .pending_items .lists .list .list_r {
+  display: inline-flex;
+  align-items: center;
+}
+
+.home .pending_items .lists .list .list_l image.w1 {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 10rpx;
+}
+
+.home .pending_items .lists .list .list_l image.w2 {
+  width: 36rpx;
+  height: 24rpx;
+  margin-right: 10rpx;
+}
+
+.home .pending_items .lists .list .list_l text {
+  opacity: 0.8;
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  color: #000000;
+}
+
+.home .pending_items .lists .list .list_r image {
+  width: 14rpx;
+  height: 24rpx;
+  margin-left: 20rpx;
+}
+
+.home .pending_items .lists .list .list_r text {
+  font-size: 19rpx;
+  color: #fff;
+  background: #E02A2E;
+  border-radius: 50%;
+  padding: 7rpx 10rpx;
+}
+
+.home .noMsg {
+  opacity: 0.2;
+  font-size: 26rpx;
+  color: #000000;
+  padding: 36rpx 0;
+  text-align: center;
+}

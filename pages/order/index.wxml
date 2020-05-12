@@ -1,0 +1,91 @@
+<!--pages/order/index.wxml-->
+<navbar
+  back="true"
+  title="订单列表"
+>
+</navbar>
+<view class="order" style="padding-top: {{ navBarHeight }}px">
+  <view class="order_header" style="top: {{ navBarHeight }}px">
+    <view class="header_search">
+      <input placeholder="请输入预定人手机号/姓名拼音查询" value="{{ searchVal }}"></input>
+      <image src="../../utils/images/sousuo.png"></image>
+    </view>
+    <view class="h20"></view>
+    <view class="tabs_creat">
+      <view class="tabs">
+        <scroll-view scroll-x scroll-with-animation="500">
+          <view class="weui-tabs-bar__content">
+            <view class="{{ active == 1 ? 'active tab' : 'tab' }}" id="1" bindtap="handleTabClick">
+              <text>预定中</text>
+              <text>({{ orderNum.preNum }})</text>
+            </view>
+            <view class="{{ active == 2 ? 'active tab' : 'tab' }}" id="2" bindtap="handleTabClick">
+              <text>在住中</text>
+              <text>({{ orderNum.liveNum }})</text>
+            </view>
+            <view class="{{ active == 3 ? 'active tab' : 'tab' }}" id="3" bindtap="handleTabClick">
+              <text>离店</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+      <view class="creatOrder" bindtap="creatOrderBtn">
+        <image src="../../utils/images/chuangjian.png"></image>
+        <text>创建</text>
+      </view>
+    </view>
+    <view class="h20"></view>
+  </view>
+  <swiper class="order_container" style="padding-top: {{ headerHeight}}px; min-height: calc(100vh - {{ headerHeight }}px); height: {{ containerHeight }}">
+    <swiper-item>
+      <scroll-view scroll-y="{{true}}" style="height: 100%" bindscrolltolower="scrollbot">
+        <view class="order_lists">
+          <view class='lists' wx:for="{{ dataList }}" id='{{ item.id }}' bindtap="orederDetail">
+            <view class="list">
+              <view class="list_title">
+                <view class="list_l"><text>{{ item.roomName }}</text></view>
+                <view class="list_r">
+                  <text class="{{ active == 1 ? 'deepgreen' : active == 2 ? 'deepyellow' : 'grey' }}">{{ active == 1 ? '预定中' : active == 2 ? '在住中' : '已离店' }}</text>
+                  <image wx:if='{{ active == 3 }}' src="../../utils/images/gengduo.png"></image>
+                </view>
+              </view>
+              <view class="list_container">
+                <view class="lis">
+                  <view class="li">
+                    <text class="name">房源名称</text>
+                    <text class="value">{{ item.roomGroupName }}</text>
+                  </view>
+                  <view class="li">
+                    <text class="name">预订人</text>
+                    <text class="value">{{ item.ownerName }}</text>
+                  </view>
+                  <view class="li">
+                    <text class="name">抵离</text>
+                    <text class="value">{{ item.startTime }}{{ item.text ? item.text  : '' }} - {{ item.endTime }} {{ item.day }}晚</text>
+                  </view>
+                </view>
+                <view class="btn-area" wx:if='{{ active < 3 }}'>
+                  <view>
+                    <button wx:if='{{ active == 1 }}' catchtap="orderCancle" id='{{ item.id }}'>取消</button>
+                    <button wx:if='{{ active == 1 }}' catchtap="edit" id='{{ item.id }}'>编辑</button>
+                    <button wx:if='{{ active == 2 }}' catchtap="checkOut" id='{{ item.id }}'>退房</button>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="h20"></view>  
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+  <view class="noMsg" wx:if='{{ dataList.length == 0 }}'>
+      <view class="tip">
+        <image src="../../utils/images/zanwushuju.png"></image>
+        <text>暂无数据</text>
+      </view>
+      <view wx:if='{{ dataList.length == 0 && active == 1 }}' class="noMsgButton">
+        <button bindtap="creatOrderBtn">立即创建</button>
+      </view>
+  </view>
+</view>

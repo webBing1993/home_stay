@@ -1,0 +1,49 @@
+<!--pages/install/index.wxml-->
+<navbar
+  back="true"
+  title="门店设置"
+>
+</navbar>
+<view class="install" style="padding-top: {{ navBarHeight }}px">
+    <view class="searchBar" wx:if='{{ dataList.length > 0 }}' style='top: {{ navBarHeight }}px'>
+        <view class="search">
+            <text>房源名称</text>
+            <view class="search_input">
+                <input placeholder="请输入名称" value='{{ inputVal }}' bindinput="inputChange"></input>
+                <image src="../../utils/images/sousuo.png" bindtap="searchBtn"></image>
+            </view>
+        </view>
+        <view class="h20"></view>
+    </view>
+    <view class="install_container" wx:if='{{ dataList.length > 0 }}' style='padding-top: {{ headerHeight }}px'>
+        <scroll-view scroll-y="{{true}}" style="height: 100%" bindscrolltolower="scrollbot">
+            <view class="lists" wx:for="{{ dataList }}" wx:key='id' bindtap="creatHouse" id="{{ item.id }}">
+                <view class="list">
+                    <view class="time_id">
+                        <text class="{{ item.auditStatus == 'PENDING' ? 'yellow' : item.auditStatus == 'REFUSED' ? 'red' : item.auditStatus == 'CANCEL' ? '' : 'green' }}">{{ item.auditStatus == 'NONE' ? '未审核' : item.auditStatus == 'PENDING' ? '审核中' : item.auditStatus == 'REFUSED' ? ('审核不通过，原因：'+item.auditRemark) : item.auditStatus == 'CANCEL' ? '已撤销' : (item.auditTime+' 审核通过') }}</text>
+                        <text>ID：{{ item.id }}</text>
+                    </view>
+                    <view class="li">
+                        <view class="li_l">
+                            <view class="name">{{ item.name }}</view>
+                            <view class="address">{{ item.address }}</view>
+                        </view>
+                        <view class="li_r">
+                            <text wx:if="{{ item.auditStatus == 'PASS' && !item.auditCode }}" class="grey">已下线</text>
+                            <text wx:elif="{{ item.auditStatus == 'REFUSED' }}" class="red" catchtap="agenApply" id='{{ item.id }}'>再次提交</text>
+                            <image src="../../utils/images/gengduo.png"></image>
+                        </view>
+                    </view>
+                </view>
+                <view class="h20"></view>
+            </view>
+        </scroll-view>
+    </view>
+    <view wx:if='{{ dataList.length == 0 }}' class="noMsg">
+        <image src="../../utils/images/zanwushuju.png"></image>
+        <text>暂无数据</text>
+    </view>
+    <view class="btn-area">
+        <button bindtap="creatHouse">房源备案</button>
+    </view>
+</view>

@@ -1,0 +1,24 @@
+<!--login.wxml-->
+<view class="login">
+  <view class="title">XX民宿管理平台</view>
+  <form bindsubmit="login_in">
+    <view class="lists">
+      <view class="list">
+        <image src="../../utils/images/shoujihao.png"></image>
+        <view class="input_phone">
+          <input class="weui-input" name='phone' bindinput="bindKeyInput" type="number" auto-focus placeholder="请输入11位手机号" maxlength='11' wx:if='{{ isPhoneInput }}' />
+          <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getPhone" wx:else>请输入11位手机号</button>
+        </view>
+        <button bindtap="getCode" wx:if='{{ timeOut }}' plain disabled="{{ disabled }}">{{ text }}</button>
+        <button plain wx:else disabled>{{ time }}s后重新获取</button>
+      </view>
+      <view class="list">
+        <image src="../../utils/images/mima.png"></image>
+        <input class="weui-input" name='code' bindinput="bindKeyCode" placeholder="请输入6位验证码" maxlength='6'/>
+      </view>
+    </view>
+    <view class="btn-area">
+      <button formType="submit" loading="{{ loading }}">登录/注册</button>
+    </view>
+  </form>
+</view>

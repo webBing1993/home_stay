@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "navbar": "../navbar/index"
+  },
+  "navigationBarTitleText" : "待办通知"
+}

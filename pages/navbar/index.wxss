@@ -1,0 +1,57 @@
+.navbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .title {
+    position: absolute;
+    bottom: 22px;
+    left: 104px;
+    right: 104px;
+    transform: translateY(50%);
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .capsule {
+    position: absolute;
+    left: 16px;
+    bottom: 22px;
+    transform: translateY(50%);
+    height: 32px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .capsule {
+      display: inline-flex;
+      align-items: center;
+  }
+
+  .capsule > image {
+    width: 18px;
+    height: 30px;
+  }
+  
+  .capsule > image:nth-child(2) {
+    margin-left: 12px;
+  }
+
+  .capsule text {
+      color: #fff;
+      font-size: 28rpx;
+      margin-left: 16rpx;
+  }
+  
+  .page {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }

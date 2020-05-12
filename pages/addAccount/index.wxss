@@ -1,0 +1,110 @@
+/* pages/addAccount/index.wxss */
+@import '../../utils//common.wxss';
+.addAccount {
+  padding-bottom: 158rpx;
+}
+
+.addAccount .lists {
+  background: #fff;
+  padding-left: 30rpx;
+}
+
+.addAccount .lists .list {
+  border-bottom: 1px solid #EDEFF2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40rpx 30rpx 40rpx 0;
+}
+
+.addAccount .lists .list.nomargin {
+  border-bottom: none;
+}
+
+.addAccount .lists .list .name {
+  width: 22%;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.addAccount .lists .list .value {
+  display: inline-flex;
+  width: 78%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addAccount .lists .list .value input {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.addAccount .lists .list .value button {
+  background: #fff;
+  border: none;
+  font-size: 30rpx;
+  color: #4378BA;
+  opacity: 1;
+  display: inline-block;
+  width: auto;
+  padding: 0;
+  margin-right: 0;
+}
+
+.addAccount .lists .list .value button[disabled] {
+  opacity: .6
+}
+
+.addAccount .lists checkbox-group {
+  
+}
+
+.addAccount .lists checkbox-group label {
+  display: block;
+  width: 100%;
+  padding: 30rpx 30rpx 30rpx 0;
+  border-bottom: 1px solid #EDEFF2;
+}
+
+.addAccount .lists checkbox {
+  margin-right: 30rpx;
+}
+
+.addAccount .btn-area {
+  position: fixed;
+  padding: 30rpx;
+  background: #F3F5F7;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - 60rpx);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addAccount .btn-area button {
+  line-height: 98rpx;
+  padding: 0;
+  font-size: 34rpx;
+  border-radius: 10rpx;
+}
+
+.addAccount .btn-area button:first-of-type {
+  width: 45%;
+  border: 2rpx solid #4378BA;
+  color: #4378BA;
+}
+
+.addAccount .btn-area button:last-of-type {
+  background: #4378BA;
+  color: #fff;
+  width: 45%;
+}
+
+.addAccount .btn-area button:only-of-type {
+  background: #4378BA;
+  color: #fff;
+  display: block;
+  width: 100%;
+}

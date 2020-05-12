@@ -1,0 +1,107 @@
+/* pages/pending/index.wxss */
+@import '../../utils/common.wxss';
+
+.pending {
+    /* padding-top: 64px; */
+}
+
+.pending .lists {
+    
+}
+
+.pending .lists .list {
+    background: #fff;
+    padding: 0 0 30rpx 30rpx;
+}
+
+.pending .lists .list .title_time {
+    border-bottom: 1px solid #D8D8D8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30rpx 30rpx 30rpx 0;
+}
+
+.pending .lists .list .title_time .title {
+    font-family: PingFangSC-Medium;
+    font-size: 32rpx;
+    color: #333333; 
+}
+
+.pending .lists .list .title_time .time {
+    font-size: 24rpx;
+    color: #999999;
+}
+
+.pending .lists .list .container_lists {
+    padding: 40rpx 0 0;
+}
+
+.pending .lists .list .container_lists .li {
+    margin-bottom: 30rpx;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.pending .lists .list .container_lists .li .name {
+    width: 22%;
+    font-size: 28rpx;
+    color: #999999;
+}
+
+.pending .lists .list .container_lists .li .value {
+    font-size: 28rpx;
+    color: #333333;
+}
+
+.pending .lists .list .tip {
+    margin-bottom: 30rpx;
+    font-size: 24rpx;
+    color: #EB3C3C;
+}
+
+.pending .lists .list .btn-area {
+    padding-right: 30rpx;
+    text-align: right;
+    position: relative;
+    justify-content: flex-end;
+    background: #fff;
+}
+
+.pending .lists .list .btn-area button {
+    background: #EAEFF4;
+    border: 1px solid #4378BA;
+    border-radius: 30rpx;
+    line-height: 60rpx;
+    padding: 0 24rpx;
+    font-size: 28rpx;
+    color: #6690C5;
+    display: inline-flex;
+    width: auto;
+}
+
+.noMsg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+}
+
+.pending .noMsg .tip {
+    margin-bottom: 80rpx;
+    text-align: center;
+}
+
+.pending .noMsg .tip image {
+    width: 174rpx;
+    height: 200rpx;
+    margin: 0 auto 64rpx;
+}
+
+.pending .noMsg .tip text {
+    display: block;
+    color: #999999;
+    font-size: 28rpx;
+    text-align: center;
+}

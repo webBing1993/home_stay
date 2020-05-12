@@ -1,0 +1,39 @@
+<!--index.wxml-->
+<!-- <navbar
+  back="false"
+  title="民宿管理平台"
+>
+</navbar> -->
+<view class="home">
+  <swiper
+    display-multiple-items='4'
+    previous-margin='56rpx'
+    next-margin='33rpx'
+    >
+    <block wx:for="{{ navList }}" wx:key="*this" wx:if='{{ item.show }}'>
+      <swiper-item id='{{ item.nav }}' bindtap='navTab'>
+        <view class="swiper-item">
+          <image src="{{ item.src }}"></image>
+        </view>
+        <view class="title">{{ item.name }}</view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="pending_items">
+    <view class="title">待办事项</view>
+    <view class="lists">
+      <view class="list" wx:for='{{ pendingList }}' id='{{ item.type }}' bindtap="pandingTap" wx:if='{{ pendingList.length != 0 }}' wx:if='{{ item.num != 0 }}'>  
+        <view class="list_l">
+          <image class="w1" src="{{ item.type == 1 ? '../../utils/images/dingdanguanli1.png' : item.type == 2 ? '../../utils/images/shebeiguanli1.png' : item.type == 3 ? '../../utils/images/zhanghaoguanli1.png' : '../../utils/images/menduanshezhi1.png' }}"></image>
+          <text>{{ item.type == 1 ? '住客登记通知' : item.type == 2 ? '退房通知' : item.type == 3 ? '设备电量不足通知' : '住客未登记通知' }}</text>
+        </view>
+        <view class="list_r">
+          <mp-badge content="{{item.num}}"/>
+          <image src="../../utils/images/gengduo.png"></image>
+        </view>
+      </view>
+      <view class="noMsg" wx:if='{{ pendingList.length == 0  }}'>暂无待办</view>
+    </view>
+  </view>
+  <mp-tabbar style="position:fixed;bottom:0;width:100%;left:0;right:0;" current="{{ current }}" list="{{ navlist }}" bindchange="tabChange"></mp-tabbar>
+</view>

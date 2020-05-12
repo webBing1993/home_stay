@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "navbar": "../navbar/index",
+    "mp-dialog": "../components/dialog/dialog",
+    "mp-icon": "../components/icon/icon"
+  }
+}

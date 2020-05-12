@@ -1,0 +1,89 @@
+<!--pages/orderDetail/index.wxml-->
+<navbar
+  back="true"
+  title="房间详情"
+>
+</navbar>
+<view class="orderDetail" style="padding-top: {{ navBarHeight }}px">
+  <view class="header_tabs" style="top: {{ navBarHeight }}px">
+    <view class="tabs">
+      <scroll-view scroll-x scroll-with-animation="500">
+        <view class="weui-tabs-bar__content">
+          <view class="{{ active == 1 ? 'active tab' : 'tab' }}" id="1" bindtap="handleTabClick">
+            <text>住客信息</text>
+          </view>
+          <view class="{{ active == 2 ? 'active tab' : 'tab' }}" id="2" bindtap="handleTabClick">
+            <text>开门记录</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="h20"></view>
+  </view>
+  <swiper class="order_container" style="padding-top: {{ headerHeight}}px; min-height: calc(100vh - {{ headerHeight + navBarHeight }}px);  height: {{ containerHeight }} ">
+    <swiper-item wx:key="title" wx:if='{{ active == 1 }}'>
+      <view class="swiperItem">
+        <view class='lists'>
+          <view class="orderList">
+            <view class="list_l">
+              <view class="list">
+                <text class="name">房间号：</text>
+                <view class="value">{{ detail.roomName }}</view>
+              </view>
+              <view class="list">
+                <text class="name">住离时间：</text>
+                <view class="value">{{ detail.predictCheckinTime }}{{ detail.text ? detail.text : '' }} - {{ detail.predictCheckoutTime }} {{ detail.day }}晚 </view>
+              </view>
+            </view> 
+          </view>
+        </view>
+        <view class='lists' wx:for='{{ detail.roomOrderGuests }}' wx:if='{{ detail.roomOrderGuests && detail.roomOrderGuests.length > 0 }}'>
+          <view class="orderList">
+            <view class="list_l">
+              <view class="list">
+                <text class="name">入住人</text>
+                <view class="value">{{ item.name }}</view>
+              </view>
+              <view class="list">
+                <text class="name">身份证号</text>
+                <view class="value">{{ item.idcard }} </view>
+              </view>
+              <view class="list">
+                <text class="name">手机号</text>
+                <view class="value">{{ item.mobile }} </view>
+              </view>
+            </view> 
+            <view class="list_r">
+              <image src="{{ item.livePhoto }}"></image>
+            </view>
+          </view>
+          <view class="orderImgs">
+            <view class="img">
+              <image src="{{ item.idcardImgReverse }}"></image>
+            </view>
+            <view class="img">
+              <image src="{{ item.idcardImgObverse }}"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+    </swiper-item>
+    <swiper-item wx:key="title" wx:if='{{ active == 2 }}'>
+      <scroll-view scroll-y="{{true}}" style="height: 100%" bindscrolltolower="scrollbot" lower-threshold='100'>
+        <view class="openLists">
+          <view class="list" wx:for='{{ recordList }}'>
+            <text class="name">{{ item.userInfo }}</text>
+            <text class="value">{{ item.openTime }}</text>
+          </view>
+          <view class="noMsg" wx:if='{{ recordList.length == 0 }}'>
+            <view class="tip">
+              <image src="../../utils/images/zanwushuju.png"></image>
+              <text>暂无数据</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>

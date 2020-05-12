@@ -1,0 +1,61 @@
+/* pages/account/index.wxss */
+@import '../../utils//common.wxss';
+.account .lists .account_lists {
+  padding-left: 30rpx;
+}
+.account .lists .list {
+  border-bottom: 1px solid #EDEFF2;
+  padding: 40rpx 30rpx 30rpx 0;
+}
+
+.account .lists .list .title {
+  margin-bottom: 30rpx;
+}
+
+.account .lists .list .title .name {
+  font-size: 28rpx;
+  color: #333333;
+  margin-right: 20rpx;
+}
+
+.account .lists .list .title .phone {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.account .lists .list .btns {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.account .lists .list .btns view {
+  display: inline-flex;
+}
+
+.account .lists .list .btns button {
+  background: #EAEFF4;
+  border: 1px solid #4378BA;
+  border-radius: 30px;
+  width: 160rpx;
+  line-height: 60rpx;
+  padding: 0;
+  margin-left: 30rpx;
+  font-size: 28rpx;
+  color: #648FC5;
+}
+
+.account .btn-area {
+  background: #F3F5F7;
+  padding: 30rpx 0;
+  width: 100%;
+}
+
+.account .btn-area button {
+  line-height: 108rpx;
+  background: #fff;
+  padding: 0;
+  width: 100%;
+  font-size: 34rpx;
+  color: #4378BA;
+}

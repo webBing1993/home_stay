@@ -1,0 +1,29 @@
+<!--pages/account/index.wxml-->
+<navbar
+  back="true"
+  title="账号管理"
+>
+</navbar>
+<view class="account" style="padding-top: {{ navBarHeight }}px">
+  <view class="h20" wx:if='{{ dataList.length != 0 }}'></view>
+  <view class="lists" wx:if='{{ dataList.length != 0 }}'>
+    <view class="account_lists">
+      <view class="list" wx:for='{{ dataList }}' wx:key='id'> 
+        <view class="title">
+          <text class="name">{{ item.realName }}</text>
+          <text class="phone">{{ item.phoneNumber }}</text>
+        </view>
+        <view class="btns">
+          <view>
+            <button bindtap="edithandle" id="{{ item.id }}">编辑</button>
+            <button bindtap="installhandle" id="{{ item.id }}">设置权限</button>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="h20"></view>
+  </view>
+  <view class="btn-area" style="{{ dataList.length == 0 ? 'position: relative' : 'position: fixed' }}">
+      <button bindtap="addAccount">添加账号</button>
+    </view>
+</view>
