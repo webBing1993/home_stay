@@ -1,12 +1,12 @@
 <!--login.wxml-->
 <view class="login">
-  <view class="title">XX民宿管理平台</view>
+  <view class="title">民宿管理平台</view>
   <form bindsubmit="login_in">
     <view class="lists">
       <view class="list">
         <image src="../../utils/images/shoujihao.png"></image>
         <view class="input_phone">
-          <input class="weui-input" name='phone' bindinput="bindKeyInput" type="number" auto-focus placeholder="请输入11位手机号" maxlength='11' wx:if='{{ isPhoneInput }}' />
+          <input class="weui-input" name='phone' bindtap="aa" bindinput="bindKeyInput" type="number" auto-focus placeholder="请输入11位手机号" maxlength='11' wx:if='{{ isPhoneInput }}' />
           <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getPhone" wx:else>请输入11位手机号</button>
         </view>
         <button bindtap="getCode" wx:if='{{ timeOut }}' plain disabled="{{ disabled }}">{{ text }}</button>

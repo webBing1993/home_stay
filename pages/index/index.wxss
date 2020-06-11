@@ -6,7 +6,7 @@
 .home swiper {
   background: #4378BA;
   padding: 40rpx 0 0;
-  height: 290rpx;
+  height: 250rpx;
 }
 
 .home swiper swiper-item {

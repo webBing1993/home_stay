@@ -9,25 +9,25 @@ Page({
       {
         src: '../../utils/images/dingdanguanli.png',
         name: '订单管理',
-        show: true,
+        show: false,
         nav: '../order/index'
       },
       {
         src: '../../utils/images/shebeiguanli.png',
         name: '设备管理',
-        show: true,
+        show: false,
         nav: '../facility/index'
       },
       {
         src: '../../utils/images/zhanghaoguanli.png',
-        name: '账号管理',
-        show: true,
+        name: '员工管理',
+        show: false,
         nav: '../account/index'
       },
       {
         src: '../../utils/images/mendianshezhi.png',
-        name: '门店设置',
-        show: true,
+        name: '房源管理',
+        show: false,
         nav: '../install/index'
       }
     ],      // nav list
@@ -98,6 +98,7 @@ getCount: function () {
   let that = this;
   utils.requestFun('/news/count', '', '', '', 'GET', function(res) {
     console.log(111, res);
+    wx.stopPullDownRefresh();
     let pendingList = that.data.pendingList;
     pendingList.forEach(item => {
       if(item.type == 1) {
@@ -122,15 +123,15 @@ getInfo: function (e) {
   utils.requestFun('/auth/info', ' ', ' ', ' ', 'GET', function (res) {
     let navList = that.data.navList;
     if (res.data.data.owner != null && res.data.data.owner) {
-      navList.forEach(item => {
+      navList.forEach((item, index) => {
         item.show = true;
       })
     }else {
       navList.forEach((item, index) => {
+        console.log(22211,item);
+        item.show = false;
         if (index == 1) {
           item.show = true;
-        }else {
-          item.show = false;
         }
       })
     }
@@ -196,8 +197,6 @@ getInfo: function (e) {
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    setTimeout(() => {
-      wx.stopPullDownRefresh();
-    }, 1000);
+    this.getCount();
   },
 })

@@ -96,12 +96,14 @@ Page({
       roomId: that.data.detail.roomId,
       userType: that.data.userType,
       openTimeStart: new Date(startTime).getTime(),
-      openTimeEnd: new Date(endTime).getTime()
+      openTimeEnd: new Date(endTime).getTime(),
+      orderBy: 'create_time',
+      desc: true
     };
     console.log(data)
     utils.requestFun('/room/lock/record', 200, that.data.page, data, 'POST', function(res) {
       res.data.data.forEach(item => {
-        item.time = utils.datetimeparse(item.openTime, 'MM/dd');
+        item.time = utils.datetimeparse(item.openTime, 'yy/MM/dd hh:mm:ss');
       });
       that.setData({ 'detail.openList': res.data.data });
       that.getHeaderHeight(1);
@@ -217,11 +219,11 @@ Page({
           console.error("步骤：" + step)
         },
         "uploadLog": function(logData) {
-          console.warn(logData)
+          console.warn(logData);
         }
       },
       (obj) => {
-        that.feedbackResults(obj, that)
+        that.feedbackResults(obj, that);
       },
       function() {
         return true;
@@ -246,14 +248,22 @@ Page({
         }, 1500)
       }
 
+    } else if (obj.code == 1) {
+      console.log('啦啦啦');
+      that.setData({ status: 'FAILDE' });
+      wx.showToast({
+        title: '距离过远，未搜索到设备',
+        icon: 'none',
+        duration: 2000
+      })
     } else {
+      console.log('yayayya')
       that.setData({ status: 'FAILDE' });
       wx.showToast({
         title: obj.msg,
         icon: 'none',
         duration: 2000
       })
-     
     }
 
   },

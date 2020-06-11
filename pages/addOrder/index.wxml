@@ -4,13 +4,13 @@
   title="创建预定单"
 >
 </navbar>
-<view class="addOrder" style="padding-top: {{ navBarHeight }}px">
+<view class="addOrder" style="padding-top: {{ navBarHeight }}px" wx:if='{{ showTemplate }}'>
   <view class="h20"></view>
   <form bindsubmit="saveBtn">
     <view class="order_container">
       <view class="lists">
         <view class="list">
-          <text class="name">房源</text>
+          <view class="name">房源<image src="../../utils/images/star.png"></image></view>
           <picker bindchange="bindRegionChange" id='1' disabled="{{ editAdd == 1 ? true : false }}"  range-key="{{'name'}}" name="regin" range="{{ region }}" class="value">
             <view class="picker">
               <text>{{ region[detail.region].name }}</text>
@@ -19,31 +19,55 @@
           </picker>
         </view>
         <view class="list">
-          <text class="name">预订人</text>
+          <view class="name">预订人<image src="../../utils/images/star.png"></image></view>
           <view class="value">
             <input placeholder="请输入预订人姓名" name='ownerName' value='{{ detail.ownerName }}'></input>
           </view>
         </view>
         <view class="list">
-          <text class="name">联系方式</text>
+          <view class="name">联系方式<image src="../../utils/images/star.png"></image></view>
           <view class="value">
-            <input type="number" placeholder="请输入手机号" name='ownerMobile' value='{{ detail.ownerMobile }}'></input>
+            <input type="number" maxlength="11" placeholder="请输入手机号" name='ownerMobile' value='{{ detail.ownerMobile }}'></input>
           </view>
         </view>
         <view class="list timeList">
-          <text class="name">住离时间</text>
+          <view class="name">住离时间<image src="../../utils/images/star.png"></image></view>
           <view class="value">
-            <picker mode="date" value="{{ date }}" start="2020-01-01" end="2030-01-01" name='predictCheckinTime' bindchange="bindDateChange" id='1'>
+            <picker mode="date" value="{{ detail.predictCheckinTime }}" start="2020-01-01" end="2030-01-01" name='predictCheckinTime' bindchange="bindDateChange" id='1'>
               <view class="picker">
                 {{ detail.predictCheckinTime }}
               </view>
             </picker>
             <text>至</text>
-            <picker mode="date" value="{{ date }}" start="2020-01-01" end="2050-01-01" name='predictCheckoutTime' bindchange="bindDateChange" id='2'>
+            <picker mode="date" value="{{ detail.predictCheckoutTime }}" start="2020-01-01" end="2050-01-01" name='predictCheckoutTime' bindchange="bindDateChange" id='2'>
               <view class="picker">
                 {{ detail.predictCheckoutTime }}
               </view>
             </picker>
+          </view>
+        </view>
+        <view class="list">
+          <view class="inOutTime">
+            <view class="name">入住时间<image src="../../utils/images/star.png"></image></view>
+            <view class="value">
+              <picker mode="time" value="{{ detail.startTime }}" name='inTime' start="00:00" end="23:59" bindchange="bindTimeChange" id="1">
+                <view class="picker">
+                  {{ detail.inTime }}
+                </view>
+                <image src="../../utils/images/gengduo.png"></image>
+              </picker>
+            </view>
+          </view>
+          <view class="inOutTime">
+            <view class="name">离店时间<image src="../../utils/images/star.png"></image></view>
+            <view class="value">
+              <picker mode="time" value="{{ detail.startTime }}" name='outTime' start="00:00" end="23:59" bindchange="bindTimeChange" id="2">
+                <view class="picker">
+                  {{ detail.outTime }}
+                </view>
+                <image src="../../utils/images/gengduo.png"></image>
+              </picker>
+            </view>
           </view>
         </view>
       </view>

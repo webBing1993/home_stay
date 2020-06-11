@@ -30,12 +30,29 @@ Page({
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function (res) {
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-          var tempFilePaths = res.tempFilePaths;
-          console.log(tempFilePaths);
-          that.setData({
-            zm: tempFilePaths[0] + '?' + Math.floor(Math.random() * 10 + 1) * 9
-          })
-          console.log('zm', that.data.zm);
+          const tempFilePaths = res.tempFilePaths;
+          wx.uploadFile({
+            url: getApp().globalData.urlOld + '/common/temp/pic', //仅为示例，非真实的接口地址
+            filePath: tempFilePaths[0],
+            name: 'file',
+            header: { "Content-Type": "application/json" , "X-auth-token" : wx.getStorageSync('xAuthToken')},
+            success: function(res){
+              console.log(res);
+              if (res.statusCode != 200) { 
+                wx.showModal({
+                  title: '提示',
+                  content: '上传失败',
+                  showCancel: false
+                })
+                return;
+              }else {
+                console.log(JSON.parse(res.data),4444);
+                that.setData({
+                  zm:JSON.parse(res.data).data
+                })
+              }
+            }
+          });
         }
       })
     } else {
@@ -45,10 +62,30 @@ Page({
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function (res) {
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-          var tempFilePaths = res.tempFilePaths
-          that.setData({
-            fm: tempFilePaths[0]
-          })
+          var tempFilePaths = res.tempFilePaths;
+          console.log(" wx.getStorageSync('xAuthToken')", wx.getStorageSync('xAuthToken'));
+          wx.uploadFile({
+            url: getApp().globalData.urlOld + '/common/temp/pic', //仅为示例，非真实的接口地址
+            filePath: tempFilePaths[0],
+            name: 'file',
+            header: { "Content-Type": "application/json" , "X-auth-token" : wx.getStorageSync('xAuthToken')},
+            success: function(res){
+              console.log(res);
+              if (res.statusCode != 200) { 
+                wx.showModal({
+                  title: '提示',
+                  content: '上传失败',
+                  showCancel: false
+                })
+                return;
+              }else {
+                console.log(JSON.parse(res.data),4444);
+                that.setData({
+                  fm:JSON.parse(res.data).data
+                })
+              }
+            }
+          });
         }
       })
     }
@@ -58,7 +95,7 @@ Page({
   logon_in: function (e) {
     console.log(e.detail.value);
     let that = this;
-    if (e.detail.value.name == ' ') {
+    if (e.detail.value.name === '') {
       wx.showToast({
         title: '请输入姓名',
         icon: 'none',
@@ -66,7 +103,7 @@ Page({
       });
       return
     }
-    if (e.detail.value.idcard == ' ') {
+    if (e.detail.value.idcard === '') {
       wx.showToast({
         title: '请输入身份证号',
         icon: 'none',
@@ -74,15 +111,15 @@ Page({
       });
       return
     }
-    if (that.data.zm == ' ') {
+    if (that.data.zm === '') {
       wx.showToast({
-        title: '请怕啥身份证人像面',
+        title: '请拍摄身份证人像面',
         icon: 'none',
         duration: 2000
       });
       return
     }
-    if (that.data.fm == ' ') {
+    if (that.data.fm === '') {
       wx.showToast({
         title: '请拍摄身份证国徽面',
         icon: 'none',
@@ -114,7 +151,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id,778)
+    console.log(options,778);
     this.setData({ id: options.id });
   },
 
@@ -129,7 +166,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.hideHomeButton();
   },
 
   /**

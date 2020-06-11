@@ -13,7 +13,7 @@ Page({
     code: '',             // 验证码
     loading: false,
     isCode: null,
-    isPhoneInput: false,   // 判断是否是自动获取了手机号
+    isPhoneInput: true,   // 判断是否是自动获取了手机号
   },
 
   // 事件处理函数
@@ -51,7 +51,7 @@ Page({
                 key: "phone",
                 data: msg.data.data.account
               });
-              if(msg.data.data.auditStatus && msg.data.data.auditStatus == 'PENDING' ) {
+              if(msg.data.data.auditStatus == null || msg.data.data.auditStatus == 'NONE' || msg.data.data.auditStatus == 'PENDING' ) {
                 console.log(333222, msg.data.data.userId)
                 wx.navigateTo({
                   url: '/pages/logon/index?id='+msg.data.data.userId
@@ -74,17 +74,29 @@ Page({
    
   },
 
+  aa: function(e) {
+    console.log(e, 'aaaa')
+  },
+
   // 手机号获取
   bindKeyInput: function (e) {
     let disabled = false;
+    let timeOut = null;
+    let that = this;
     if (e.detail.value.length >= 11) {
       disabled = false;  // 这是为了满足点击获取验证码条件
+      if (that.data.time == 0 || that.data.time == null) {
+        timeOut = true;
+      }else {
+        timeOut = false
+      }
     }else {
       disabled = true;
     }
-    this.setData({
+    that.setData({
       phone: e.detail.value,
-      disabled: disabled
+      disabled: disabled,
+      timeOut: timeOut
     })
   },
 
@@ -107,7 +119,7 @@ Page({
     utils.requestFun("/auth/sms", ' ', ' ', data, 'POST', function (msg) {
       console.log(msg);
       that.setData({
-        time: 120,
+        time: 60,
         timeOut: false
       });
       that.timeout();
@@ -188,19 +200,23 @@ Page({
         console.log(data,556);
         utils.requestFun("/auth/sms/login", '', '', data, 'POST', function (res1) {
           console.log(res1,3222);
-          wx.setStorageSync('xAuthToken', res1.header['X-auth-token']);
-          utils.requestFun("/auth/info", '', '', '', 'GET', function (msg) {
-            console.log(msg, 221);
-            if(msg.data.auditStatus && msg.data.auditStatus != 'PENDING' ) {
-              wx.navigateTo({
-                url: '../logon/index/id='+msg.data.userId
+          // wx.setStorageSync('xAuthToken', res1.header['X-auth-token']);
+          console.log('wx.getStorageSync("xAuthToken")', wx.getStorageSync("xAuthToken"));
+          if (res1.data.data.owner) {
+            if(res1.data.data.auditStatus == 'NONE' || res1.data.data.auditStatus == 'PENDING' || res1.data.data.auditStatus == null ) {
+              wx.redirectTo({
+                url: '../logon/index?id='+res1.data.data.userId
               });
             }else {
               wx.redirectTo({
                 url: '/pages/index/index',
               })
             }
-          })
+          }else {
+            wx.redirectTo({
+              url: '/pages/index/index',
+            })
+          }
         });
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }

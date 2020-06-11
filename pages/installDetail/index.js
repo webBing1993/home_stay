@@ -14,11 +14,14 @@ Page({
   data: {
     detail: {
       houseName: '',
+      startTime: '15:00',
+      endTime: '12:00',
+      police: '',
       size: '',
       roomNum: '',
       longitude: '',    // 经度
       latitude: '',    // 纬度
-      address: '吴兴区',
+      address: '',
       addressDetail: '',
       groupImageList: [],
       name: '',
@@ -28,12 +31,14 @@ Page({
       roomsList: [],
       notice: '',
       contactName: '',
+      amount: '',
       contactPhone: '',
     },
-    region: ['吴兴区', '南浔区', '德清县', '长兴县', '安吉县'],
+    region: ['吴兴区'],
+    policeList: [],   // 所属辖区
     loading: false,
     editAdd: null,       // 0表示新增，1表示拒绝，2表示审核通过，3表示审核中，4表示已撤销
-    status: null,        // 0审核中，1审核不通过，2审核通过
+    status: null,        // 0审核中，1审核不通过，2审核通过, 3提交失败
     status_: true,   // false下线 true上线
     activeAction: 0,        // tab切换
     navBarHeight,
@@ -76,9 +81,35 @@ Page({
     })
   },
 
+  // 住离时间选择
+  bindTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    let id = e.currentTarget.id;
+    if (id == 1) {
+      this.setData({
+        'detail.startTime': e.detail.value
+      })
+    }else {
+      this.setData({
+        'detail.endTime': e.detail.value
+      })
+    }
+  },
+
   // 选择
   checkboxChange: function (e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value)
+  },
+
+  // 聚焦
+  addressIstrue: function(e) {
+    if (this.data.detail.address === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请先选择区县',
+        showCancel: false
+      });
+    }
   },
 
   // 输入赋值
@@ -140,11 +171,20 @@ Page({
       },
       complete: res => {
         console.log(1212, res)
-        console.log(res.result.location)
-        that.setData({
-          'detail.longitude': res.result.location.lng,
-          'detail.latitude': res.result.location.lat,
-        })
+        if (res.status == 0) {
+          console.log(res.result.location);
+          that.setData({
+            'detail.longitude': res.result.location.lng,
+            'detail.latitude': res.result.location.lat,
+          })
+        }else {
+          wx.showModal({
+            title: '提示',
+            content: res.message,
+            showCancel: false
+          });
+          return
+        }
       }
     })
   },
@@ -154,7 +194,7 @@ Page({
   bindRegionChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      'detail.region': this.data.region[e.detail.value]
+      'detail.address': this.data.region[e.detail.value]
     })
   },
 
@@ -206,30 +246,48 @@ Page({
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths;
         console.log(112211, res);
-        wx.uploadFile({
-          url: getApp().globalData.urlOld + '/common/temp/pic', 
-          filePath: tempFilePaths[0],
-          name: 'file',
-          header: { "Content-Type": "application/json" , "X-auth-token" : wx.getStorageSync('xAuthToken')},
-          success: function(res){
-            console.log(232323, res);
-            if (res.statusCode != 200) { 
-              wx.showModal({
-                title: '提示',
-                content: '上传失败',
-                showCancel: false
-              })
-              return;
-            }else {
-              let imgList = that.data.detail.groupImageList;
-              imgList.push(JSON.parse(res.data).data);
-              that.setData({
-                'detail.groupImageList': imgList
-              })
+        tempFilePaths.forEach(item => {
+          console.log(item);
+          wx.uploadFile({
+            url: getApp().globalData.urlOld + '/common/temp/pic', 
+            filePath: item,
+            name: 'file',
+            header: { "Content-Type": "application/json" , "X-auth-token" : wx.getStorageSync('xAuthToken')},
+            success: function(res){
+              console.log(232323, res);
+              let da = JSON.parse(res.data);
+              if (da.errcode != 0) { 
+                wx.showModal({
+                  title: '提示',
+                  content: '上传失败',
+                  showCancel: false
+                })
+                return;
+              }else {
+                let imgList = that.data.detail.groupImageList;
+                imgList.push(JSON.parse(res.data).data);
+                if (imgList.length > 3) {
+                  imgList.splice(3, imgList.length-3);
+                }
+                that.setData({
+                  'detail.groupImageList': imgList
+                })
+              }
             }
-          }
-        });
+          });
+        })
       }
+    })
+  },
+
+  // 删除图片
+  deleteImage(event) {
+    //获取数据绑定的data-id的数据
+    const nowIndex = event.currentTarget.dataset.id;
+    let images = this.data.detail.groupImageList;
+    images.splice(nowIndex, 1);
+    this.setData({
+      'detail.groupImageList': images
     })
   },
 
@@ -242,30 +300,80 @@ Page({
     })
   },
 
+  // 上线
+  onLine: function (e) {
+    let that = this;
+    utils.requestFun('/roomGroup/'+that.data.id+'/online', ' ', ' ', ' ', 'PUT', function(e) {
+      console.log(e);
+      wx.showToast({
+        title: '成功上线',
+        icon: 'none',
+        duration: 2000
+      });
+      setTimeout(() => {
+        let pages = getCurrentPages(); //页面栈
+        let beforePage = pages[pages.length - 2];
+        wx.navigateBack({
+          delta: 1,    // 返回上一级页面。
+          success: function() {
+            if (beforePage.route == 'pages/install/index') {
+              beforePage.onLoad() //这个函数式调用接口的函数
+            }
+          }
+        })
+      }, 1500);
+    })
+  },
+
   // 提交
   submit: function (e) {
     console.log(e); 
     let that = this;
-    if (that.data.detail.addressDetail == '') {
+    if (that.data.detail.name === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请输入房源名称',
+        showCancel: false
+      })
+      return;
+    }
+    console.log(that.data.detail.police, 555);
+    if(that.data.detail.police === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请选择所属派出所',
+        showCancel: false
+      })
+      return;
+    }
+    if (that.data.detail.size === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请输入建筑面积',
+        showCancel: false
+      })
+      return;
+    }
+    if (that.data.detail.amount === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请输入房间数量',
+        showCancel: false
+      })
+      return;
+    }
+    if (that.data.detail.address === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请选择区县',
+        showCancel: false
+      })
+      return;
+    }
+    if (that.data.detail.addressDetail === '') {
       wx.showModal({
         title: '提示',
         content: '请输入详细地址',
-        showCancel: false
-      })
-      return;
-    }
-    if (that.data.detail.contactName == '') {
-      wx.showModal({
-        title: '提示',
-        content: '请输入负责人姓名',
-        showCancel: false
-      })
-      return;
-    }
-    if (that.data.detail.contactPhone == '') {
-      wx.showModal({
-        title: '提示',
-        content: '请输入负责人电话',
         showCancel: false
       })
       return;
@@ -278,30 +386,23 @@ Page({
       })
       return;
     }
-    if (that.data.detail.amount == '') {
+    if (that.data.detail.contactName === '') {
       wx.showModal({
         title: '提示',
-        content: '请输入房间数量',
+        content: '请输入负责人姓名',
         showCancel: false
       })
       return;
     }
-    if (that.data.detail.size == '') {
+    if (that.data.detail.contactPhone === '') {
       wx.showModal({
         title: '提示',
-        content: '请输入建筑面积',
+        content: '请输入负责人电话',
         showCancel: false
       })
       return;
     }
-    if (that.data.detail.name == '') {
-      wx.showModal({
-        title: '提示',
-        content: '请输入房源名称',
-        showCancel: false
-      })
-      return;
-    }
+    
     let data = {
       address: '浙江省#湖州市#'+that.data.detail.address,
       addressDetail: that.data.detail.addressDetail,
@@ -313,6 +414,7 @@ Page({
       name: that.data.detail.name,
       longitude: that.data.detail.longitude,
       latitude: that.data.detail.latitude,
+      inspectCode: that.data.policeList[that.data.detail.police].code
     };
     
     if (that.data.id) {
@@ -326,9 +428,10 @@ Page({
       that.setData({
         loading: false
       });
-    }, 5000)
+    }, 30000)
     if (e.currentTarget.id) {
-      if (that.data.detail.keeperPhone == '') {
+      console.log('that.data.detail', that.data.detail);
+      if (that.data.detail.keeperPhone === '' || that.data.detail.keeperPhone == null) {
         wx.showModal({
           title: '提示',
           content: '请输入管家电话',
@@ -336,7 +439,7 @@ Page({
         })
         return;
       }
-      if (that.data.detail.notice == '') {
+      if (that.data.detail.notice === '' || that.data.detail.notice == null) {
         wx.showModal({
           title: '提示',
           content: '请输入入住须知',
@@ -344,7 +447,7 @@ Page({
         })
         return;
       }
-      if (that.data.detail.mainImage == '') {
+      if (that.data.detail.mainImage === '' || that.data.detail.mainImage == '../../utils/images/tianjiafengmianzhaopian.png') {
         wx.showModal({
           title: '提示',
           content: '请上传封面图片',
@@ -372,7 +475,6 @@ Page({
       console.log(data);
       let data1 = {};
       data1.rooms = [];
-      console.log(that.data);
       if ( that.data.detail.roomsList && that.data.detail.roomsList.length != 0) {
         that.data.detail.roomsList.forEach((item, index) => {
           let obj = {};
@@ -397,6 +499,9 @@ Page({
       data1.keeperPhone = that.data.detail.keeperPhone;
       data1.mainImage = that.data.detail.mainImage;
       data1.notice = that.data.detail.notice;
+      data1.inTime = that.data.detail.startTime;
+      data1.outTime = that.data.detail.endTime;
+      console.log('data1', data1)
       utils.requestFun('/roomGroup/'+that.data.id+'/fill', ' ', ' ', data1, 'PUT', function(res) {
         console.log(res, 65556);
         wx.showToast({
@@ -422,6 +527,7 @@ Page({
         }, 1500);
       });
     }else {
+      console.log('data', data);
       utils.requestFun('/roomGroup/apply', ' ', ' ', data, 'POST', function(res) {
         console.log(res, 65556);
         wx.showToast({
@@ -471,7 +577,7 @@ Page({
     let index = e.detail.index;   // 0取消，1确定
     let that = this;
     
-    if (that.dialogType == 2 && index == 1) {
+    if (that.data.dialogType == 2 && index == 1) {
       utils.requestFun('/roomGroup/'+that.data.id+'/apply/cancel', ' ', ' ', ' ', 'PUT', function(e) {
         console.log(e);
         wx.showToast({
@@ -485,14 +591,15 @@ Page({
           wx.navigateBack({
             delta: 1,    // 返回上一级页面。
             success: function() {
-              if (beforePage.route == 'pages/order/index') {
+              if (beforePage.route == 'pages/install/index') {
                 beforePage.onLoad() //这个函数式调用接口的函数
               }
             }
           })
         }, 1500);
       })
-    }else if (that.dialogType == 1 && index == 1) {
+    }else if (that.data.dialogType == 1 && index == 1) {
+      console.log(that.data.id)
       utils.requestFun('/roomGroup/'+that.data.id+'/offline', ' ', ' ', ' ', 'PUT', function(e) {
         console.log(e);
         wx.showToast({
@@ -506,7 +613,7 @@ Page({
           wx.navigateBack({
             delta: 1,    // 返回上一级页面。
             success: function() {
-              if (beforePage.route == 'pages/order/index') {
+              if (beforePage.route == 'pages/install/index') {
                 beforePage.onLoad() //这个函数式调用接口的函数
               }
             }
@@ -535,6 +642,10 @@ Page({
         editAdd = 1;
         status = 1;
         activeAction = 1;
+      }else if (data.auditStatus == 'FAILED') {
+        editAdd = 1;
+        status = 3;
+        activeAction = 1;
       }else if (data.auditStatus == 'PASS') {
         editAdd = 2;
         status = 2;
@@ -546,7 +657,7 @@ Page({
       }else {
         editAdd = 4
       }
-      let status_ = data.auditCode == 'ENABLE' ? true : false;
+      let status_ = data.status == 'DISABLED' ? true : false;
       let rooms = [];
       for(var i = 0; i < data.amount; i++) {
         rooms.push('');
@@ -564,9 +675,16 @@ Page({
       console.log('rooms', rooms)
       data.roomsList = [];
       data.roomsList = rooms;
-
+      data.police = '';
+      that.data.policeList.forEach((item, index) => {
+        if (item.code == data.inspectCode) {
+          data.police = index
+        }
+      })
       data.updateTime = utils.datetimeparse(data.updateTime, 'yy/MM/dd hh:mm');
       data.address = data.address ? data.address.split('#')[2] : '';
+      data.startTime = data.inTime ? data.inTime : '15:00';
+      data.endTime = data.outTime ? data.outTime : '12:00';
       data.groupImageList = data.groupImage ? data.groupImage.split(',') : [];
       console.log(rooms);
       that.setData({
@@ -579,6 +697,33 @@ Page({
       });
       that.getHeaderHeight();
     });
+    setTimeout(() => {
+      that.setData({ showTemplate: true })
+    }, 3000);
+  },
+
+  // 辖区选择
+  bindPoliceChange: function(e) {
+    console.log(e);
+    this.setData({
+      'detail.police': e.detail.value
+    })
+  },
+
+  // 获取所属辖区列表
+  getPoliceList: function() {
+    console.log(333222);
+    let that = this;
+    utils.requestFun('/common/dict/police/station', ' ', ' ', ' ', 'GET', function(res) {
+      console.log(332, res.data);
+      that.setData({
+        policeList: res.data.data,
+        'detail.police': ''
+      });
+      if(that.data.id) {
+        that.getDetail();
+      }
+    })
   },
 
   /**
@@ -588,9 +733,9 @@ Page({
     qqmapsdk = new QQMapWX({
       key: '65MBZ-DFO2O-IIVWZ-SLG5I-7B5AZ-V7FVB' //这里自己的secret秘钥进行填充
     });
+    this.getPoliceList();
     if(options.id) {
       this.setData({ id: options.id });
-      this.getDetail();
     }else {
       this.setData({ editAdd: 0, showTemplate: true });
       this.getHeaderHeight();

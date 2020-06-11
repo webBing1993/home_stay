@@ -26,6 +26,7 @@ Page({
     recordList: [],
     id: null,
     page: 1,
+    imgList: [],
   },
 
   // tab
@@ -55,6 +56,16 @@ Page({
     });
   },
 
+  // 图片点击放大
+  preview: function(e) {
+    let currentUrl = e.currentTarget.dataset.src;
+    let that = this;
+    wx.previewImage({
+      current: currentUrl, // 当前显示图片的http链接
+      urls: that.data.imgList // 需要预览的图片http链接列表
+    })
+  },
+
   // 触底事件
   scrollbot: function () {
     console.log('到达底部了,加载更多电影文件内容')
@@ -68,13 +79,20 @@ Page({
     };
     utils.requestFun('/order/'+that.data.id, ' ', ' ', data, 'GET', function(res) {
       res.data.data.text = utils.isToday(res.data.data.predictCheckinTime);
-      res.data.data.day = Math.floor((res.data.data.predictCheckoutTime - res.data.data.predictCheckinTime) / (24*60*60*1000));
+      res.data.data.day = Math.floor((new Date(utils.datetimeparse(res.data.data.predictCheckoutTime, 'yy/MM/dd') + ' 00:00:00').getTime() - (new Date(utils.datetimeparse(res.data.data.predictCheckinTime, 'yy/MM/dd') + ' 00:00:00').getTime())) / (24*60*60*1000));
       res.data.data.predictCheckinTime = utils.datetimeparse(res.data.data.predictCheckinTime, 'MM/dd');
       res.data.data.predictCheckoutTime = utils.datetimeparse(res.data.data.predictCheckoutTime, 'MM/dd');
       console.log(res.data.data);
+      let imgList = [];
+      if (res.data.data.roomOrderGuests && res.data.data.roomOrderGuests.length != 0) {
+        res.data.data.roomOrderGuests.forEach(item => {
+          imgList.push(item.idcardImgReverse, item.idcardImgObverse)
+        })
+      }
       that.getOpenList();
       that.setData({
-        detail: res.data.data
+        detail: res.data.data,
+        imgList: imgList
       });
       //创建节点选择器
       var query = wx.createSelectorQuery();
@@ -93,8 +111,12 @@ Page({
     let that = this;
     let data = {
       roomId: that.data.detail.roomId,
-      orderNo: that.data.detail.orderNo
+      roomOrderId: that.data.id,
+      orderNo: that.data.detail.orderNo,
+      orderBy: 'create_time',
+      desc: true
     };
+    console.log('开门', data);
     utils.requestFun('/room/lock/record', 200, that.data.page, data, 'POST', function(res) {
       res.data.data.forEach(item => {
         item.openTime = utils.datetimeparse(item.openTime, 'yy/MM/dd hh:mm:ss');

@@ -2,5 +2,6 @@
   "usingComponents": {
     "navbar": "../navbar/index"
   },
+  "navigationStyle": "default",
   "navigationBarTitleText" : "身份认证"
 }

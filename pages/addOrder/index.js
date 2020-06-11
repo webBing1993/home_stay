@@ -17,6 +17,8 @@ Page({
       predictCheckoutTime: utils.datetimeparse(new Date().getTime()+(24*60*60*1000), 'yy/MM/dd'),
       roomNum: [0],
       id: null,
+      inTime: '15:00',
+      outTime: '12:00'
     },
     region: [],   // 房源
     roomList: [],  // 房间号
@@ -24,6 +26,7 @@ Page({
     editAdd: 0,     // 0表示新增1表示编辑
     id: null,       // 订单id
     roomGroupId: null,    // 房源id
+    showTemplate: false,
   },
 
   // 日期选择
@@ -32,11 +35,26 @@ Page({
     let id = e.currentTarget.id;
     if (id == 1) {
       this.setData({
-        "detail.startDate": e.detail.value
+        "detail.predictCheckinTime": e.detail.value.replace(/-/g,"/")
       })
     }else {
       this.setData({
-        "detail.endDate": e.detail.value
+        "detail.predictCheckoutTime": e.detail.value.replace(/-/g,"/")
+      })
+    }
+  },
+
+  // 入住离店时间选择
+  bindTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    let id = e.currentTarget.id;
+    if (id == 1) {
+      this.setData({
+        'detail.inTime': e.detail.value
+      })
+    }else {
+      this.setData({
+        'detail.outTime': e.detail.value
       })
     }
   },
@@ -51,7 +69,11 @@ Page({
       let region = that.data.region;
       region.forEach((item, index) => {
         if(index == e.detail.value) {
-          that.setData({ roomGroupId: item.id });
+          that.setData({ 
+            roomGroupId: item.id,
+            'detail.inTime': item.inTime ? item.inTime : '15:00',
+            'detail.outTime': item.outTime ? item.outTime : '12:00'
+          });
           that.getroomList();
         }
       });
@@ -112,11 +134,17 @@ Page({
         roomId: res.data.data.roomId,
         'detail.predictCheckinTime': utils.datetimeparse(res.data.data.predictCheckinTime, 'yy/MM/dd'),
         'detail.predictCheckoutTime': utils.datetimeparse(res.data.data.predictCheckoutTime, 'yy/MM/dd'),
-        'detail.id': res.data.data.id
+        'detail.inTime': utils.datetimeparse(res.data.data.predictCheckinTime, 'hh:mm'),
+        'detail.outTime': utils.datetimeparse(res.data.data.predictCheckoutTime, 'hh:mm'),
+        'detail.id': res.data.data.id,
+        showTemplate: true
       });
       console.log('that.data.roomGroupId', that.data.roomGroupId)
       that.getroomList();
-    })
+    });
+    setTimeout(() => {
+      that.setData({ showTemplate: true })
+    }, 3000);
   },
 
   // 获取所有可用房源
@@ -129,7 +157,9 @@ Page({
       if (that.data.editAdd == 0) {
         that.setData({
           'detail.region': 0,
-          roomGroupId: res.data.data[0].id
+          roomGroupId: res.data.data[0].id,
+          'detail.inTime': res.data.data[0].inTime ? res.data.data[0].inTime : '15:00',
+          'detail.outTime': res.data.data[0].outTime ? res.data.data[0].outTime : '12:00'
         });
         that.getroomList();
       }else {
@@ -155,8 +185,12 @@ Page({
       }
       that.setData({
         roomList: res.data.data,
+        showTemplate: true
       });
-    })
+    });
+    setTimeout(() => {
+      that.setData({ showTemplate: true })
+    }, 3000);
   },
 
 
@@ -197,16 +231,37 @@ Page({
       });
       return;
     }
+    if (new Date(that.data.detail.predictCheckinTime).getTime() >= new Date(that.data.detail.predictCheckoutTime).getTime()) {
+      wx.showModal({
+        title: '提示',
+        content: '离店时间必须大于住店时间',
+        showCancel: false
+      });
+      return;
+    }
+    console.log(new Date(utils.datetimeparse(new Date().getTime(), 'yy/MM/dd') + ' 00:00:00').getTime())
+    let timestart = new Date(that.data.detail.predictCheckinTime).getTime();
+    let startTime = new Date(utils.datetimeparse(new Date().getTime(), 'yy/MM/dd') +' 00:00:00').getTime();
+    console.log(timestart < startTime);
+    console.log(new Date(that.data.detail.predictCheckinTime).getTime() < new Date(utils.datetimeparse(new Date().getTime(), 'yy/MM/dd') + '00:00:00').getTime())
+    if (timestart < startTime) {
+      wx.showModal({
+        title: '提示',
+        content: '住店时间不可小于当天时间',
+        showCancel: false
+      });
+      return;
+    }
     let data = {
       ownerMobile: detail.ownerMobile,
       ownerName: detail.ownerName,
-      predictCheckinTime: new Date(that.data.detail.predictCheckinTime).getTime(),
-      predictCheckoutTime: new Date(that.data.detail.predictCheckoutTime).getTime(),
+      predictCheckinTime: new Date(that.data.detail.predictCheckinTime + ' '+that.data.detail.inTime+':00').getTime(),
+      predictCheckoutTime: new Date(that.data.detail.predictCheckoutTime + ' '+that.data.detail.outTime+':00').getTime(),
       roomGroupId: that.data.roomGroupId
     };
     data.rooms = [];
     that.data.roomList.forEach((item, index) => {
-      that.data.detail.roomNum.forEach(i => {
+      that.data.detail.roomNum.forEach((i, j) => {
         if (index == i) {
           let obj = {};
           obj.id = item.id;
@@ -237,6 +292,8 @@ Page({
         }, 1500);
       })
     }else {
+      data.roomId = data.rooms[0].id;
+      console.log(that.data.id, data);
       // 编辑保存
       utils.requestFun('/order/'+that.data.id+'/booking', ' ', ' ', data, 'PUT', function(res) {
         wx.showToast({

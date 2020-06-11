@@ -24,7 +24,7 @@
 }
 
 .installDetail .lists .list .name {
-    width: 22%;
+    width: 24%;
     font-size: 28rpx;
     color: #333333;
 }
@@ -34,7 +34,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 78%;
+    width: 76%;
+    position: relative;
+}
+
+.installDetail .lists .list .value.police picker {
+    width: 100%;
+}
+
+.installDetail .lists .list .value.police picker .picker {
+    font-size: 28rpx;
+    color: #333333;
+}
+
+.installDetail .lists .list .value image {
+    width: 14rpx;
+    height: 24rpx;
+    position: absolute;
+    right: 30rpx;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .installDetail .lists .list .value.select {
@@ -62,10 +81,21 @@
     padding-bottom: 40rpx;
 }
 
+.installDetail .pics .pic_lists {
+    position: relative;
+    display: inline-block;
+    margin-right: 30rpx;
+}
+
+.installDetail .pics .pic_lists .close_icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 .installDetail .pics image {
     width: 128rpx;
     height: 128rpx;
-    margin-right: 30rpx;
 }
 
 .installDetail .btn-area {
@@ -221,6 +251,16 @@
     border-bottom: none;
 }
 
+.installDetail .tabLists .list .value picker {
+    display: inline-block;
+    width: 40%;
+}
+
+.installDetail .tabLists .list .value picker:last-of-type {
+    text-align: right;
+    padding-right: 30rpx;
+}
+
 .installDetail .tabLists.textarea {
     padding: 42rpx 30rpx 74rpx;
 }
@@ -236,4 +276,17 @@
     height: 200rpx;
     font-size: 28rpx;
     color: #333333;
+}
+
+.installDetail .value.disabledColor input, .installDetail .value.disabledColor .picker {
+    color: #999 !important;
+}
+
+.installDetail .list .disabledColor {
+    color: #999 !important;
+}
+
+.installDetail .list .name image, .installDetail .title image {
+    width: 14rpx;
+    height: 14rpx;
 }

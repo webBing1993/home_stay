@@ -4,7 +4,7 @@
   title="{{ status != 2 ? '房源备案' : '房源设置' }}"
 >
 </navbar>
-<view class="installDetail" style="padding-top: {{ navBarHeight }}px" >
+<view class="installDetail" style="padding-top: {{ navBarHeight }}px"  wx:if='{{ showTemplate }}'>
   <view class="houseInstall" style="top: {{ navBarHeight }}px" wx:if='{{ status == 2 }}'>
     <view class="tabs">
       <view bindtap="tabChange" id='0' class="{{ activeAction == 0 ? 'active' : '' }}">房源信息</view>
@@ -15,103 +15,134 @@
   <view class="activeTab" wx:if="{{ activeAction == 0 && editAdd == 2 }}"  style="padding-top: {{ headerHeight}}px; min-height: calc(100vh - {{ headerHeight + navBarHeight }}px);">
     <view class="tabLists">
       <view class="list">
-        <text class="name">管家电话</text>
+        <view class="name">管家电话<image src="../../utils/images/star.png"></image></view>
         <view class="value">
-          <input type="number" placeholder="在小程序端展示，住客可用此电话联系" bindinput="inputVal" data-id="7" value="{{ detail.keeperPhone }}"></input>
+          <input type="number" placeholder="在小程序端展示，住客可用此电话联系" bindinput="inputVal" data-id="7" value="{{ detail.keeperPhone }}"  disabled="{{ status_ ? true : false }}" class="{{ status_ ? 'disabledColor' : '' }}"></input>
+        </view>
+      </view>
+      <view class="list">
+        <view class="name">住离时间<image src="../../utils/images/star.png"></image></view>
+        <view class="value">
+          <picker mode="time" value="{{ detail.startTime }}" start="00:00" end="23:59" bindchange="bindTimeChange" id="1">
+            <view class="picker">
+              {{ detail.startTime }}
+            </view>
+          </picker>
+          <text>至</text>
+          <picker mode="time" value="{{ detail.endTime }}" start="00:00" end="23:59" bindchange="bindTimeChange" id='2'>
+            <view class="picker">
+              {{ detail.endTime }}
+            </view>
+          </picker>
         </view>
       </view>
       <view class="list noBottom">
-        <text class="name">封面照片</text>
+        <view class="name">封面照片<image src="../../utils/images/star.png"></image></view>
         <view class="value">
           <text>尺寸600*300在小程序端展示给住客</text>
         </view>
       </view>
       <view class="pics">
-        <image src="{{ detail.mainImage }}" bindtap="chooseImage"></image>
+        <image src="{{ detail.mainImage }}" bindtap="chooseImage"  disabled="{{ status_ ? true : false }}"></image>
       </view>
     </view> 
     <view class="h20"></view>
     <view class="tabLists picLists">
       <view class="list" wx:for='{{ detail.roomsList }}'>
-        <text class="name">房间{{ index+1 }}</text>
-        <input value="{{ item }}" bindinput="inputVal" data-id="8" id="{{ index }}" placeholder="请输入房间号或名称"></input>
+        <view class="name">房间{{ index+1 }}<image src="../../utils/images/star.png" wx:if='{{ index == 0 }}'></image></view>
+        <input value="{{ item }}" bindinput="inputVal" data-id="8" id="{{ index }}" placeholder="请输入房间号或名称"  disabled="{{ status_ ? true : false }}" class="{{ status_ ? 'disabledColor' : '' }}"></input>
       </view>
     </view>
     <view class="h20"></view>
     <view class="tabLists textarea">
-      <view class="title">入住须知</view>
-      <textarea placeholder="请输入入住须知"  bindinput="inputVal" data-id="9" value="{{ detail.notice }}"></textarea>
+      <view class="title">入住须知<image src="../../utils/images/star.png"></image></view>
+      <textarea placeholder="请输入入住须知"  bindinput="inputVal" data-id="9" value="{{ detail.notice }}" disabled="{{ status_ ? true : false }}" class="{{ status_ ? 'disabledColor' : '' }}"></textarea>
     </view>
   </view>
   <view class="activeTab" wx:if="{{ activeAction == 1 || status != 2 }}"  style="padding-top: {{ headerHeight}}px; min-height: calc(100vh - {{ headerHeight + navBarHeight }}px);">
     <view class="red" wx:if='{{ editAdd != 0 && status == 0 }}'>资料正在审核中，请耐心等待</view>
     <view class="red" wx:if='{{ editAdd == 1 && status == 1 }}'>审核拒绝，原因是{{ detail.auditRemark }}</view>
+     <view class="red" wx:if='{{ editAdd == 1 && status == 3 }}'>提交失败</view>
     <view class="red" wx:if='{{ editAdd == 2 && status == 2 && status_ }}'>{{ detail.updateTime }} 已下线</view>
     <view class="green" wx:if='{{ editAdd == 2 && status == 2 && !status_ }}'><image src='../../utils/images/shenhetongguo.png'></image> {{ detail.updateTime }} 审核通过</view>
     <form bindsubmit="submitBtn">
       <view class="lists">
         <view class="list">
-          <text class="name">房源名称</text>
-          <view class="value">
+          <view class="name">房源名称<image src="../../utils/images/star.png"></image></view>
+          <view class="{{ editAdd != 0 ? 'value disabledColor' : 'value' }}">
             <input placeholder="请输入房源名称" name='name' bindinput="inputVal" data-id="1" value="{{ detail.name }}" disabled="{{ editAdd != 0 ? true : false }}"></input>
           </view>
         </view>
         <view class="list">
-          <text class="name">建筑面积</text>
-          <view class="value">
+          <view class="name">建筑面积<image src="../../utils/images/star.png"></image></view>
+          <view class="{{ editAdd != 0 ? 'value disabledColor' : 'value' }}">
             <input type="number" placeholder="请输入建筑面积" bindinput="inputVal" data-id="2" name='size' value="{{ detail.size }}" disabled="{{ editAdd != 0 ? true : false }}"></input>
             <text>平米</text>
           </view>
         </view>
         <view class="list">
-          <text class="name">房间数量</text>
-          <view class="value">
+          <view class="name">房间数量<image src="../../utils/images/star.png"></image></view>
+          <view class="{{ editAdd != 0 ? 'value disabledColor' : 'value' }}">
             <input type="number" placeholder="请输入房间数量" bindinput="inputVal" data-id="3" name='amount' value="{{ detail.amount }}" disabled="{{ editAdd != 0 ? true : false }}"></input>
             <text>间</text>
           </view>
         </view>
         <view class="list">
-          <text class="name">省市区</text>
-          <view class="value select">
+          <view class="name">省市区<image src="../../utils/images/star.png"></image></view>
+          <view class="{{ editAdd != 0 ? 'value select disabledColor' : 'value select' }}">
             <text>浙江省 湖州市</text>
             <picker bindchange="bindRegionChange" name="regin" range="{{ region }}" disabled="{{ editAdd != 0 ? true : false }}">
               <view class="picker">
-                {{ detail.address }}
+                {{ detail.address ? detail.address : '请选择' }}
               </view>
             </picker>
             <text>区县</text>
           </view>
         </view>
         <view class="list">
-          <text class="name">详细地址</text>
-          <view class="value">
-            <input placeholder="请输入详细地址，XX路XX号" bindinput="inputVal" data-id="4" name='addressDetail' value="{{ detail.addressDetail }}" bindblur="autoGetLocation"></input>
+          <view class="name">详细地址<image src="../../utils/images/star.png"></image></view>
+          <view class="{{ editAdd != 0 ? 'value disabledColor' : 'value' }}">
+            <input placeholder="请输入详细地址，XX路XX号" bindfocus="addressIstrue" bindinput="inputVal" data-id="4" name='addressDetail' value="{{ detail.addressDetail }}" bindblur="autoGetLocation"  disabled="{{ editAdd != 0 ? true : false }}"></input>
             <!-- <mp-icon icon="location" color="black" size="{{25}}"></mp-icon> -->
           </view>
         </view>
+        <view class="list">
+          <view class="name">所属派出所<image src="../../utils/images/star.png"></image></view>
+          <view class="{{ editAdd != 0 ? 'value disabledColor police' : 'value police' }}">
+            <picker bindchange="bindPoliceChange"  range-key="{{'name'}}" name="police" range="{{ policeList }}" disabled="{{ editAdd != 0 ? true : false }}">
+              <view class="picker">
+                {{ (detail.police !== '') ? policeList[detail.police].name : '请选择' }}
+              </view>
+              <image src="../../utils/images/gengduo.png"></image>
+            </picker>
+          </view>
+        </view>
         <view class="list pic">
-          <text class="name">房源照片</text>
+          <view class="name">房源照片<image src="../../utils/images/star.png"></image></view>
           <view class="value">
             <text>（最少1张，最多3张）</text>
           </view>
         </view>
         <view class="pics">
-          <image wx:for='{{ detail.groupImageList }}' wx:key='id' src="{{ item }}"></image>
+          <view class="pic_lists" wx:for='{{ detail.groupImageList }}'>
+            <image wx:key='id' src="{{ item }}"></image>
+            <mp-icon icon="close" color="red" size="{{20}}" class="close_icon" data-id="{{index}}" bindtap="deleteImage"></mp-icon>
+          </view>
           <image src="../../utils/images/tianjiazhaopian.png" bindtap="choosePic" wx:if='{{ detail.groupImageList.length < 3 && editAdd == 0 }}'></image>
         </view>
       </view>
       <view class="h20"></view>
       <view class="lists">
         <view class="list">
-          <text class="name">负责人</text>
-          <view class="value">
-            <input placeholder="请输入负责人姓名" bindinput="inputVal" data-id="5" name='contactName' value="{{ detail.contactName }}"></input>
+          <view class="name">负责人<image src="../../utils/images/star.png"></image></view>
+          <view class="{{ editAdd != 0 ? 'value disabledColor' : 'value' }}">
+            <input placeholder="请输入负责人姓名" bindinput="inputVal" data-id="5" name='contactName' value="{{ detail.contactName }}" disabled="{{ editAdd != 0 ? true : false }}"></input>
           </view>
         </view>
         <view class="list">
-          <text class="name">电话</text>
-          <view class="value">
-            <input type="tel" placeholder="请输入负责人电话" bindinput="inputVal" data-id="6" name='contactPhone' value="{{ detail.contactPhone }}"></input>
+          <view class="name">电话<image src="../../utils/images/star.png"></image></view>
+          <view class="{{ editAdd != 0 ? 'value disabledColor' : 'value' }}">
+            <input type="tel" placeholder="请输入负责人电话" bindinput="inputVal" data-id="6" name='contactPhone' value="{{ detail.contactPhone }}" disabled="{{ editAdd != 0 ? true : false }}"></input>
           </view>
         </view>
       </view>
@@ -120,14 +151,14 @@
   <view class="btn-area" wx:if='{{ editAdd == 0 }}'>
     <button bindtap="submit" loading="{{ loading }}">提交</button> 
   </view>
-  <view class="btn-area" wx:elif='{{ editAdd == 1 || (status == 0 && editAdd != 0) }}'>
+  <!-- <view class="btn-area" wx:elif='{{ editAdd == 1 || (status == 0 && editAdd != 0) }}'>
     <button wx:if='{{ status == 0 }}' bindtap="cancelBtn">撤销</button>
     <button wx:if='{{ status == 0 }}' bindtap="resetSubmit">重新提交</button>
-    <button wx:if='{{ status == 1 || editAdd == 4 }}' bindtap="resetSubmit">重新提交</button>
-  </view>
+    <button wx:if='{{ status == 3 || status == 1 || editAdd == 4 }}' bindtap="resetSubmit">重新提交</button>
+  </view> -->
   <view class="btn-area" wx:elif='{{ editAdd == 2 }}'>
-    <button wx:if='{{ status_ }}' bindtap="resetSubmit">重新提交</button>
-    <button wx:if='{{ status_ }}' bindtap="submit">上线</button>
+    <!-- <button wx:if='{{ status_ }}' bindtap="resetSubmit">重新提交</button> -->
+    <button wx:if='{{ status_ }}' bindtap="onLine">上线</button>
 
     <button wx:if='{{ !status_ }}' bindtap="downLine">下线</button>
     <button wx:if='{{ !status_ }}' bindtap="submit" id='2' loading="{{ loading }}">保存</button>

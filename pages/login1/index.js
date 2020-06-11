@@ -40,9 +40,21 @@ Page({
           utils.requestFun('/auth/wx/jscode/login', '', '', data, 'POST', function(res) {
             wx.setStorageSync('xAuthToken', res.header['X-auth-token']);
             if (res.data.data.loginStatus == 'NAMED') {
-              wx.redirectTo({
-                url: '/pages/index/index',
-              })
+              if (res.data.data.owner) {
+                if(res.data.data.auditStatus == null || res.data.data.auditStatus == 'NONE' || res.data.data.auditStatus == 'PENDING' ) {
+                  wx.redirectTo({
+                    url: '/pages/logon/index?id='+res.data.data.userId
+                  })
+                }else {
+                  wx.redirectTo({
+                    url: '/pages/index/index',
+                  })
+                }
+              }else {
+                wx.redirectTo({
+                  url: '/pages/index/index',
+                })
+              }
             }else {
               wx.redirectTo({
                 url: '/pages/login/index',

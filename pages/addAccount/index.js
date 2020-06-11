@@ -71,7 +71,7 @@ Page({
     utils.requestFun("/auth/sms", ' ', ' ', data, 'POST', function (msg) {
       console.log(msg);
       that.setData({
-        time: 120,
+        time: 60,
         timeOut: false
       });
       that.timeout();

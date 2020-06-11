@@ -18,6 +18,7 @@ Page({
   // 获取数据列表
   getList: function (e) {
     let that = this;
+    console.log('that.data.page', that.data.page, that.data.type);
     utils.requestFun('/news/'+that.data.type, 10, that.data.page, ' ', 'GET', function(res) {
       console.log(res, 999);
       wx.stopPullDownRefresh();
@@ -29,6 +30,9 @@ Page({
         that.setData({ onReachBottomDisabled: true })
       }else {
         that.setData({ onReachBottomDisabled: false })
+      }
+      if(that.data.page > 1) {
+        dataList = [...that.data.dataList, ...dataList];
       }
       that.setData({
         dataList: dataList
@@ -42,7 +46,7 @@ Page({
       return;
     }else {
       this.setData({
-        page: this.data.page++
+        page: ++this.data.page
       })
       this.getList();
     }
@@ -68,7 +72,7 @@ Page({
         })
       }else {
         wx.navigateTo({
-          url: '../facilityDetail/index?id='+id,
+          url: '../orderDetail/index?id='+id,
         })
       }
     });
@@ -80,7 +84,9 @@ Page({
    */
   onLoad: function (options) {
       let that = this;
-      let type = options.type;
+      console.log('options', options)
+      let type = options ? options.type : parseInt(wx.getStorageSync('type'));
+      wx.setStorageSync('type', type);
       if (type == 1) {
         that.setData({ type: 'TENANT_REGISTER' })
       }else if (type == 2) {
@@ -127,13 +133,6 @@ Page({
   onPullDownRefresh: function () {
     this.setData({ page:1 });
     this.getList();
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
   },
 
   /**

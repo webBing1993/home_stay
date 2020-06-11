@@ -20,24 +20,30 @@ Page({
    */
   oneTree: function (e) {
     console.log(e);
+    console.info("index:"+e.target.dataset.index);
     let arr = e.detail.value;
-    console.log(arr);
+    console.log('arr', arr);
     let that = this;
     let nodes = that.data.nodes;
     nodes.forEach((item, index) => {
-      item.checked = false;
+      // item.checked = false;
       if (item.rooms) {
         item.rooms.forEach(j => {
-          j.checked = false;
+          if(j.checked && j.roomGroupId != e.target.dataset.index) {
+
+          }else {
+            item.checked = false;
+            j.checked = false;
+          }
         })
       }
       if (arr.length != 0) {
         arr.forEach(i => {
           if (item.roomGroupId == i) {
-            item.checked = true;
+            item.checked = !item.checked ;
             if (item.rooms) {
               item.rooms.forEach(j => {
-                j.checked = true;
+                j.checked = item.checked;
               })
             }
           }
@@ -152,7 +158,7 @@ Page({
           item.isClose = true;
         }else {
           item.checked = false;
-          item.isClose = false;
+          item.isClose = true;
         }
         if (item.rooms) {
           item.rooms.forEach(i => {

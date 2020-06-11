@@ -21,7 +21,8 @@ Page({
 
   // 房源选择
   bindPickerChange: function(e) {
-    this.setData({ page: 1 });
+    console.log(e)
+    this.setData({ page: 1, houseVal: e.detail.value });
     this.getList();
   },
 
@@ -69,22 +70,21 @@ Page({
       wx.stopPullDownRefresh();
       res.data.data.forEach(item => {
         item.updateTime = utils.datetimeparse(item.updateTime, 'yy/MM/dd hh:mm:ss');
-        if(item.battery <= 10) {
+        if(item.battery <= 20) {
           item.status = 0;
-        }else if (item.battery > 10 && item.battery < 100) {
-          item.status = 1;
         }else {
-          item.status = 2;
+          item.status = 1;
         }
       })
       let dataList = res.data.data;
-      if(that.data.page > 1) {
-        dataList = [...that.data.dataList, dataList];
-      }
+      
       if (dataList.length < 10) {
         that.setData({ onReachBottomDisabled: true });
       }else {
         that.setData({ onReachBottomDisabled: false });
+      }
+      if(that.data.page > 1) {
+        dataList = [...that.data.dataList, ...dataList];
       }
       that.setData({ dataList: dataList });
       //创建节点选择器
@@ -118,7 +118,7 @@ Page({
       return;
     }else {
       this.setData({
-        page: this.data.page++
+        page: ++this.data.page
       })
       this.getList();
     }

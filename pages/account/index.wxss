@@ -1,5 +1,8 @@
 /* pages/account/index.wxss */
 @import '../../utils//common.wxss';
+.account {
+  padding-bottom: 90px;
+}
 .account .lists .account_lists {
   padding-left: 30rpx;
 }

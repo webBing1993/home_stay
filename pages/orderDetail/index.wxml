@@ -22,51 +22,62 @@
   </view>
   <swiper class="order_container" style="padding-top: {{ headerHeight}}px; min-height: calc(100vh - {{ headerHeight + navBarHeight }}px);  height: {{ containerHeight }} ">
     <swiper-item wx:key="title" wx:if='{{ active == 1 }}'>
-      <view class="swiperItem">
-        <view class='lists'>
-          <view class="orderList">
-            <view class="list_l">
+      <scroll-view scroll-y="{{true}}" style="height: 100%" bindscrolltolower="scrollbot" lower-threshold='100'>
+        <view class="swiperItem">
+          <view class='lists'>
+            <view class="orderList">
+              <view class="list_l">
               <view class="list">
-                <text class="name">房间号：</text>
-                <view class="value">{{ detail.roomName }}</view>
+                  <text class="name">房源：</text>
+                  <view class="value">{{ detail.roomGroupName }}</view>
+                </view>
+                <view class="list">
+                  <text class="name">房间号：</text>
+                  <view class="value">{{ detail.roomName }}</view>
+                </view>
+                <view class="list">
+                  <text class="name">预订人：</text>
+                  <view class="value">{{ detail.ownerName }} {{ detail.ownerMobile ? '-'+detail.ownerMobile : '' }}</view>
+                </view>
+                <view class="list">
+                  <text class="name">住离日期：</text>
+                  <view class="value">{{ detail.predictCheckinTime }}{{ detail.text ? detail.text : '' }} - {{ detail.predictCheckoutTime }} {{ detail.day }}晚 </view>
+                </view>
+              </view> 
+            </view>
+          </view>
+          <view class='lists' wx:for='{{ detail.roomOrderGuests }}' wx:if='{{ detail.roomOrderGuests && detail.roomOrderGuests.length > 0 }}'>
+            <view class="orderList">
+              <view class="list_l">
+                <view class="list">
+                  <text class="name">入住人</text>
+                  <view class="value">{{ item.name }}</view>
+                </view>
+                <view class="list">
+                  <text class="name">身份证号</text>
+                  <view class="value">{{ item.idcard }} </view>
+                </view>
+                <view class="list">
+                  <text class="name">手机号</text>
+                  <view class="value">{{ item.mobile }} </view>
+                </view>
+              </view> 
+              <view class="list_r">
+                <image src="{{ item.livePhoto }}"></image>
               </view>
-              <view class="list">
-                <text class="name">住离时间：</text>
-                <view class="value">{{ detail.predictCheckinTime }}{{ detail.text ? detail.text : '' }} - {{ detail.predictCheckoutTime }} {{ detail.day }}晚 </view>
+            </view>
+            <view class="orderImgs">
+              <view class="img">
+                <image src="{{ item.idcardImgReverse }}"  bindtap="preview" data-src="{{ item.idcardImgReverse }}"></image>
               </view>
-            </view> 
+              <view class="img">
+                <image src="{{ item.idcardImgObverse }}" bindtap="preview" data-src="{{ item.idcardImgObverse }}"></image>
+              </view>
+            </view>
           </view>
         </view>
-        <view class='lists' wx:for='{{ detail.roomOrderGuests }}' wx:if='{{ detail.roomOrderGuests && detail.roomOrderGuests.length > 0 }}'>
-          <view class="orderList">
-            <view class="list_l">
-              <view class="list">
-                <text class="name">入住人</text>
-                <view class="value">{{ item.name }}</view>
-              </view>
-              <view class="list">
-                <text class="name">身份证号</text>
-                <view class="value">{{ item.idcard }} </view>
-              </view>
-              <view class="list">
-                <text class="name">手机号</text>
-                <view class="value">{{ item.mobile }} </view>
-              </view>
-            </view> 
-            <view class="list_r">
-              <image src="{{ item.livePhoto }}"></image>
-            </view>
-          </view>
-          <view class="orderImgs">
-            <view class="img">
-              <image src="{{ item.idcardImgReverse }}"></image>
-            </view>
-            <view class="img">
-              <image src="{{ item.idcardImgObverse }}"></image>
-            </view>
-          </view>
-        </view>
-      </view>
+      </scroll-view>
+     
       
     </swiper-item>
     <swiper-item wx:key="title" wx:if='{{ active == 2 }}'>

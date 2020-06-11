@@ -9,19 +9,19 @@
   <form bindsubmit='saveBtn'>
     <view class="lists">
       <view class="list">
-        <text class="name">姓名</text>
+        <view class="name">姓名<image src="../../utils/images/star.png"></image></view>
         <view class="value">
           <input placeholder="请输入员工姓名" name='name' value="{{ name }}" auto-focus></input>
         </view>
       </view>
       <view class="list">
-        <text class="name">手机号码</text>
+        <view class="name">手机号码<image src="../../utils/images/star.png"></image></view>
         <view class="value">
           <input placeholder="输入的手机号为员工账号" name='phone' value="{{ phone }}" bindinput="bindKeyInput" maxlength="11"></input>
         </view>
       </view>
       <view class="list nomargin">
-        <text class="name">验证码</text>
+        <view class="name">验证码<image src="../../utils/images/star.png"></image></view>
         <view class="value">
           <input placeholder="请输入验证码" name='code' maxlength="6"></input>
           <button bindtap="getCode" wx:if='{{ timeOut }}' plain disabled="{{ disabled }}">{{ text }}</button>

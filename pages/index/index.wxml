@@ -7,15 +7,17 @@
 <view class="home">
   <swiper
     display-multiple-items='4'
-    previous-margin='56rpx'
-    next-margin='33rpx'
+    previous-margin='0rpx'
+    next-margin='0rpx'
     >
-    <block wx:for="{{ navList }}" wx:key="*this" wx:if='{{ item.show }}'>
+    <block wx:for="{{ navList }}" wx:key="*this">
       <swiper-item id='{{ item.nav }}' bindtap='navTab'>
-        <view class="swiper-item">
-          <image src="{{ item.src }}"></image>
+        <view wx:if='{{ item.show }}'>
+          <view class="swiper-item">
+            <image src="{{ item.src }}"></image>
+          </view>
+          <view class="title">{{ item.name }}</view>
         </view>
-        <view class="title">{{ item.name }}</view>
       </swiper-item>
     </block>
   </swiper>

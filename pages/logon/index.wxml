@@ -1,25 +1,25 @@
 <!--pages/logon/index.wxml-->
-<navbar
+<!-- <navbar
   back="true"
   title="身份认证"
 >
-</navbar>
-<view class="logon" style="padding-top: {{ navBarHeight }}px">
+</navbar> -->
+<view class="logon" >
     <view class="h20"></view>
     <form bindsubmit='logon_in'>
         <view class="lists">
             <view class="list">
-                <view class="title">姓名</view>
+                <view class="title">姓名<image src="../../utils/images/star.png"></image></view>
                 <input type="text" name='name' placeholder="请输入姓名"></input>
             </view>
             <view class="list">
-                <view class="title">身份证号</view>
-                <input type="idcard" name='idcard' placeholder="请输入身份证号"></input>
+                <view class="title">身份证号<image src="../../utils/images/star.png"></image></view>
+                <input type="idcard" name='idcard' placeholder="请输入身份证号" maxlength='18'></input>
             </view>
         </view>
         <view class="h20"></view>
         <view class="idCardLists">
-            <view class="title">拍摄您的二代身份证</view>
+            <view class="title">拍摄您的二代身份证<image src="../../utils/images/star.png"></image></view>
             <view class="idCard_lists">
                 <view class="list">
                     <view class="imgs" id="1" bindtap="touchphoto">

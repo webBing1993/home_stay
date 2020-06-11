@@ -18,7 +18,10 @@ Page({
 
   // input
   inputChange: function (e) {
-    console.log(e)
+    console.log(e);
+    this.setData({
+      inputVal: e.detail.value
+    })
   },
 
   // 房源搜索
@@ -59,10 +62,11 @@ Page({
   // 上拉加载
   onReachBottom: function (e) {
     let that = this;
+    console.log('触发了上拉加载')
     if(that.data.onReachBottomDisabled) {
       return
     }else {
-      that.setData({ page: that.data.page++ });
+      that.setData({ page: ++that.data.page });
       that.getList();
     }
   },
@@ -73,21 +77,25 @@ Page({
     let data = {
       keyWords: that.data.inputVal
     };
+    console.log('that.data.page', that.data.page)
     utils.requestFun('/roomGroup/search', 10, that.data.page, data, 'GET', function(res) {
       wx.stopPullDownRefresh();
       let dataList = res.data.data;
-      dataList.forEach(item => {
-        item.auditTime = utils.datetimeparse(item.auditTime, 'yy/MM/dd hh:mm');
-        item.address = item.address.split('#');
-      });
-      if(that.data.page > 1) {
-        dataList = [...that.data.dataList, dataList];
+      if (dataList.length != 0) {
+        dataList.forEach(item => {
+          item.auditTime = utils.datetimeparse(item.auditTime, 'yy/MM/dd hh:mm');
+          item.address = item.address.split('#');
+        });
       }
       if(dataList.length < 10) {
-        that.setData({ onReachBottomDisabled: false })
-      }else {
         that.setData({ onReachBottomDisabled: true })
+      }else {
+        that.setData({ onReachBottomDisabled: false })
       }
+      if(that.data.page > 1) {
+        dataList = [...that.data.dataList, ...dataList];
+      }
+      console.log(dataList)
       that.setData({
         dataList: dataList
       });
@@ -159,10 +167,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    console.log('到底啦')
-  },
-
+  
   /**
    * 用户点击右上角分享
    */

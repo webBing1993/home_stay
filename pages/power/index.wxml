@@ -7,8 +7,8 @@
 <view class="power" style="padding-top: {{ navBarHeight }}px">
   <view class="tree_lists">
     <!-- 一级 -->
-    <checkbox-group class='one_tree' bindchange='oneTree'>
-      <label class="checkbox" wx:for="{{ nodes }}" name='houseList' id='{{ item.roomGroupId }}'>
+    <checkbox-group class='one_tree' bindchange='oneTree' data-index="{{ item.roomGroupId }}" wx:for="{{ nodes }}">
+      <label class="checkbox" name='houseList' id='{{ item.roomGroupId }}'>
         <view class="label_box">
           <view catchtap="">
             <checkbox value="{{ item.roomGroupId }}" checked="{{ item.checked }}"/>

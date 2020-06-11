@@ -34,21 +34,26 @@ Component({
     },
 
     back() {
-      this.triggerEvent('back')
+      this.triggerEvent('back');
+      console.log('getCurrentPages()', getCurrentPages());
       if (getCurrentPages().length === 1) {
         wx.redirectTo({
           url: '/page/index/index'
         })
       } else {
-        wx.navigateBack()
-        // let pages = getCurrentPages(); //页面栈
-        // let beforePage = pages[pages.length - 2];
-        // wx.navigateBack({
-        //   delta: 1,    // 返回上一级页面。
-        //   success: function() {
-        //     beforePage.onLoad()
-        //   }
-        // })
+        
+        let pages = getCurrentPages(); //页面栈
+        if (pages.length == 2 || pages[1].route == "pages/pending/index") {
+          let beforePage = pages[pages.length - 2];
+          wx.navigateBack({
+            delta: 1,    // 返回上一级页面。
+            success: function() {
+              beforePage.onLoad()
+            }
+          })
+        }else {
+          wx.navigateBack()
+        }
       }
     }
   }

@@ -35,7 +35,8 @@
         <view class="list" id='{{ item.id }}' bindtap="handleDetail" data-roomNo='{{ item.roomName }}' data-roomId="{{ item.roomId }}">
           <view class="list_container">
             <view class="list_l">
-              <image src="{{ item.status == 0 ? '../../utils/images/dadianchihong.png' : item.status == 1 ? '../../utils/images/dadianchihu.png' : '../../utils/images/dadianchilv.png' }}"></image>
+              <image src="{{ item.status == 0 ? '../../utils/images/dadianchihong.png' : '../../utils/images/dadianchilv.png' }}"></image>
+              <view class="{{ item.status == 0 ? 'hongColor' : 'lvColor' }}">{{ item.status == 0 ? '低电压' : '正常' }}</view>
             </view>
             <view class="list_r">
               <view class="list_fl">
@@ -47,13 +48,13 @@
               </view>
             </view>
           </view>
-          <view class="list_footer">
-            <view class="{{ item.status == 0 ? 'hongColor' : item.status == 1 ? 'huiColor' : 'lvColor' }}">{{ item.battery }}%</view>
-            <view class="{{ item.status== 2 ? 'hongColor footer_fr' : 'footer_fr' }}">
+          <!-- <view class="list_footer">
+            <view class="{{ item.status == 0 ? 'hongColor' : 'lvColor' }}">{{ item.status == 0 ? '低电压' : '正常' }}</view>
+            <view class="{{ item.status== 1 ? 'hongColor footer_fr' : 'footer_fr' }}">
               <text>更新时间</text>
               <text>{{ item.updateTime }}</text>
             </view>
-          </view>
+          </view> -->
         </view>
         <view class="h20"></view>
       </view>

@@ -24,6 +24,11 @@
     font-size: 28rpx;
 }
 
+.logon .lists .list .title image {
+    width: 14rpx;
+    height: 14rpx;
+}
+
 .logon .lists .list input {
     color: #333;
     font-size: 28rpx;
@@ -39,6 +44,11 @@
     color: #555;
     font-size: 32rpx;
     font-family: PingFangSC-Medium;
+}
+
+.logon .idCardLists .title image {
+    width: 14rpx;
+    height: 14rpx;
 }
 
 .logon .idCardLists .idCard_lists {
