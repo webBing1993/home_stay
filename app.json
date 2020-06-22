@@ -1,11 +1,12 @@
 {
-  "pages":[
-   
-    "pages/login1/index",   
-    "pages/login/index",   
+  "pages": [
+    
+    "pages/login1/index",
+    "pages/login/index",
     "pages/logon/index",
     "pages/index/index",
     "pages/order/index",
+    "pages/order/extend",
     "pages/addOrder/index",
     "pages/orderDetail/index",
     "pages/my/index",
@@ -16,12 +17,12 @@
     "pages/power/index",
     "pages/install/index",
     "pages/installDetail/index",
+    "pages/installDetail/register",
     "pages/pending/index",
     "pages/navbar/index"
-    
   ],
-  "window":{
-    "backgroundTextStyle":"dark",
+  "window": {
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#4378BA",
     "navigationBarTitleText": "",
     "navigationBarTextStyle": "white",

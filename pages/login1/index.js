@@ -1,4 +1,5 @@
 // pages/login1/index.js
+const app = getApp();
 import utils from '../../utils/util'
 var app_id = 'wx598d731244d7f337';
 Page({
@@ -39,6 +40,7 @@ Page({
           };
           utils.requestFun('/auth/wx/jscode/login', '', '', data, 'POST', function(res) {
             wx.setStorageSync('xAuthToken', res.header['X-auth-token']);
+            app.globalData.authorities = res.data.data.authorities;
             if (res.data.data.loginStatus == 'NAMED') {
               if (res.data.data.owner) {
                 if(res.data.data.auditStatus == null || res.data.data.auditStatus == 'NONE' || res.data.data.auditStatus == 'PENDING' ) {

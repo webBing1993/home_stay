@@ -39,6 +39,7 @@ App({
   globalData: {
     userInfo: null,
     isCode: null,
+    authorities:null,//当前用户登录权限
     urlOld: 'https://wqt.fortrun.cn/q/master/homestay-provider'   // http://192.168.2.105:8920   http://qa.fortrun.cn:8920   https://wqt.fortrun.cn/q/master/homestay-provider  https://wqt.fortrun.cn/p/master/homestay-provider
   },
 })

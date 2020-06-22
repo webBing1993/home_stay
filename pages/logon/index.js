@@ -111,6 +111,23 @@ Page({
       });
       return
     }
+    if (e.detail.value.idcard.length != 18) {
+      wx.showToast({
+        title: '请输入正确的身份证号码',
+        icon: 'none',
+        duration: 2000
+      });
+      return;
+    }
+    if (!utils.checkIdCard(e.detail.value.idcard)) {
+      wx.showToast({
+        title: '请输入正确的身份证号码',
+        icon: 'none',
+        duration: 2000
+      });
+      return;
+    }
+
     if (that.data.zm === '') {
       wx.showToast({
         title: '请拍摄身份证人像面',
@@ -141,8 +158,12 @@ Page({
     console.log(data);
     utils.requestFun("/provider/user/audit/apply", ' ', ' ', data, 'PUT', function (msg) {
       console.log(msg);
+      //注册房东 直接跳转至新增房源
+      // wx.reLaunch({
+      //   url: '../index/index'
+      // })
       wx.reLaunch({
-        url: '../index/index'
+        url: '../installDetail/register'
       })
     })
   },
@@ -166,7 +187,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.hideHomeButton();
+    //wx.hideHomeButton();
   },
 
   /**

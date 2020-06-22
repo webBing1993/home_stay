@@ -79,7 +79,7 @@ Page({
   // 创建
   creatOrderBtn: function (e) {
     let that = this;
-    utils.requestFun('/roomGroup/active', ' ', ' ', ' ', 'GET', function(res) {
+    utils.requestFun('/roomGroup/roomOrder/active', ' ', ' ', ' ', 'GET', function(res) {
       if (res.data.data && res.data.data.length == 0) {
         wx.showToast({
           title: '请先设置房源',
@@ -123,7 +123,13 @@ Page({
       dialogShow: false
     })
    },
-
+//续住
+  extend:function(e){
+    let id = e.currentTarget.id;
+    wx.navigateTo({
+      url: '../order/extend?id=' + id,
+    })
+  },
   // 退房
   checkOut: function (e) {
     let id = e.currentTarget.id;

@@ -1,5 +1,5 @@
 const navBarHeight = wx.getSystemInfoSync().statusBarHeight + 44
-
+import utils from '../../utils/util';
 Component({
 
   properties: {
@@ -18,6 +18,14 @@ Component({
     background: {
       type: String,
       value: '#4378BA'
+    },
+    logOut:{
+      type: Boolean,
+      value: true
+    },
+    leftBack:{
+      type: Boolean,
+      value: true
     }
   },
 
@@ -37,11 +45,20 @@ Component({
       this.triggerEvent('back');
       console.log('getCurrentPages()', getCurrentPages());
       if (getCurrentPages().length === 1) {
-        wx.redirectTo({
-          url: '/page/index/index'
-        })
-      } else {
+        if(this.data.logOut){
+          utils.requestFun('/auth/logout', '', '', '', 'GET', function (res) {
+            wx.removeStorageSync('xAutoToken');
+            wx.reLaunch({
+              url: '../login1/index'
+            });
+          })
+        }else{
+          wx.redirectTo({
+            url: '/page/index/index'
+          })
+        }
         
+      } else {
         let pages = getCurrentPages(); //页面栈
         if (pages.length == 2 || pages[1].route == "pages/pending/index") {
           let beforePage = pages[pages.length - 2];

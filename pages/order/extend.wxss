@@ -1,0 +1,194 @@
+/* pages/addOrder/index.wxss */
+@import '../../utils/common.wxss';
+.addOrder {
+  padding-bottom: 158rpx;
+}
+
+
+.addOrder .order_container .lists {
+  
+  background: #fff;
+}
+
+.addOrder .order_container .lists .list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.listleft{
+   padding-left: 30rpx;
+}
+.borderbottom{
+border-bottom: 1px solid #D8D8D8;
+}
+.jianju{
+  height:20rpx;
+  background-color: #F3F5F7;
+  width: 100vh;
+ 
+}
+
+.addOrder .order_container .lists .list:nth-of-type(5) {
+  border-bottom: none;
+}
+
+.addOrder .order_container .lists .list .inOutTime {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  position: relative;
+}
+
+.addOrder .order_container .lists .list .inOutTime:first-of-type {
+  padding-right: 30rpx;
+}
+
+.addOrder .order_container .lists .list .inOutTime:first-of-type::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 80%;
+  background-color: #D8D8D8;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+} 
+
+.addOrder .order_container .lists .list .inOutTime:nth-of-type(2) {
+  padding-left: 30rpx;
+}
+
+.addOrder .order_container .lists .list .inOutTime .name {
+  width: 78%;
+}
+
+.addOrder .order_container .lists .list .name {
+  font-size: 28rpx;
+  color: #333333;
+  width: 22%;
+}
+
+.addOrder .order_container .lists .list .value {
+  width: 78%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #333333;
+  padding: 40rpx 0;
+  position: relative;
+}
+
+.addOrder .order_container .lists .list .value picker {
+  display: block;
+  width: 100%;
+}
+
+.addOrder .order_container .lists .list.timeList .value picker:nth-of-type(2) .picker {
+  justify-content: flex-end;
+}
+
+.addOrder .order_container .lists .list .value .picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addOrder .order_container .lists .list picker.value  {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.addOrder .order_container .lists .list .value image {
+  width: 14rpx;
+  height: 24rpx;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 30rpx;
+}
+
+.addOrder .list .name image {
+  width: 14rpx;
+  height: 14rpx;
+}
+
+.addOrder .order_container .lists .list .value input {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.addOrder .order_container .lists .list.timeList .value {
+  justify-content: space-around;
+}
+
+.addOrder .roomInfo {
+  
+}
+
+.addOrder .roomInfo .info_title {
+  padding: 30rpx;
+  background: #F3F5F7;
+  font-size: 32rpx;
+  color: #333333;
+}
+
+.addOrder .roomInfo .roomLists {
+  background: #fff;
+  padding-left: 30rpx;
+}
+
+.addOrder .roomInfo .roomLists .list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #D8D8D8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40rpx 30rpx 40rpx 0;
+}
+
+.addOrder .roomInfo .roomLists .list .name {
+  width: 25%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.addOrder .roomInfo .roomLists .list .name image {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 30rpx;
+}
+
+.addOrder .roomInfo .roomLists .list .name text {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.addOrder .roomInfo .roomLists .list .value {
+  width: 75%;
+}
+
+.addOrder .roomInfo .roomLists .list .value picker  {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.addOrder .roomInfo .roomLists .list .value picker image {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14rpx;
+  height: 24rpx;
+}

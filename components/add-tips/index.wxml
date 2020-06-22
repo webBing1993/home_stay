@@ -1,0 +1,8 @@
+<view class="box" wx:if="{{SHOW_TOP}}" style="top:{{custom?navbarHeight:0}}px;">
+  <view class='arrow' style="margin-right:{{arrowR}}px;"></view>
+  <view class='body' bindtap='hidden' style="margin-right:{{bodyR}}px;">
+		<image src="../images/shoucang.png" class="logo"></image>
+    <view class="tips">右上角添加到【我的小程序】，下次开门更方便</view>
+    <!-- <image src="../images/ic_close.png" class="close"></image> -->
+  </view>
+</view>

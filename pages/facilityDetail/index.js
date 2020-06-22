@@ -235,6 +235,7 @@ Page({
     wx.hideLoading();
     let that = this;
     if (obj.code == 0) {
+      wx.vibrateLong();
       that.setData({ status: 'SUCCESS' });
       wx.showToast({
         title: '开门成功',

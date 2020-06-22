@@ -42,6 +42,7 @@ Page({
           console.log(data)
           utils.requestFun('/auth/wx/phoneNumber/login', '', '', data, 'POST', function(res) {
             console.log(res, '成功了');
+            app.globalData.authorities = res.data.data.authorities;
             if(res.header['X-auth-token'] && res.header['X-auth-token'] != undefined) {
               wx.setStorageSync('xAuthToken', res.header['X-auth-token']);
             }
@@ -202,6 +203,7 @@ Page({
           console.log(res1,3222);
           // wx.setStorageSync('xAuthToken', res1.header['X-auth-token']);
           console.log('wx.getStorageSync("xAuthToken")', wx.getStorageSync("xAuthToken"));
+          app.globalData.authorities = res1.data.data.authorities;
           if (res1.data.data.owner) {
             if(res1.data.data.auditStatus == 'NONE' || res1.data.data.auditStatus == 'PENDING' || res1.data.data.auditStatus == null ) {
               wx.redirectTo({

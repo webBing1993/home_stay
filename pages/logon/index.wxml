@@ -1,9 +1,10 @@
 <!--pages/logon/index.wxml-->
-<!-- <navbar
+<navbar
   back="true"
   title="身份认证"
+  logOut="true"
 >
-</navbar> -->
+</navbar>
 <view class="logon" >
     <view class="h20"></view>
     <form bindsubmit='logon_in'>

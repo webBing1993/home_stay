@@ -1,9 +1,4 @@
-<!--pages/installDetail/index.wxml-->
-<navbar
-  back="true"
-  title="{{ status != 2 ? '房源备案' : '房源设置' }}"
->
-</navbar>
+<navbar back="true" leftBack="{{leftBack}}" title="{{ status != 2 ? '房源备案' : '房源设置' }}"></navbar>
 <view class="installDetail" style="padding-top: {{ navBarHeight }}px"  wx:if='{{ showTemplate }}'>
   <view class="houseInstall" style="top: {{ navBarHeight }}px" wx:if='{{ status == 2 }}'>
     <view class="tabs">

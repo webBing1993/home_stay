@@ -2,7 +2,8 @@
   "usingComponents": {
     "mp-tabbar": "../components/tabbar/tabbar",
     "navbar": "../navbar/index",
-    "mp-dialog": "../components/dialog/dialog"
+    "mp-dialog": "../components/dialog/dialog",
+    "add-tips": "/components/add-tips/index"
   },
   "navigationBarTitleText" : "我的"
 }

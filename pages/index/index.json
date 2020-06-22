@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "mp-badge": "../components/badge/badge",
-    "mp-tabbar": "../components/tabbar/tabbar"
+    "mp-tabbar": "../components/tabbar/tabbar",
+    "add-tips": "/components/add-tips/index"
   },
   "navigationStyle": "default",
   "navigationBarTitleText" : "民宿管理平台"

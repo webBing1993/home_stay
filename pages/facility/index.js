@@ -41,7 +41,7 @@ Page({
   // 获取所有房源列表
   getRoomGroup: function(res) {
     let that = this;
-    utils.requestFun('/roomGroup/all', ' ', ' ', ' ', 'GET', function(res) {
+    utils.requestFun('/roomGroup/device/all', ' ', ' ', ' ', 'GET', function(res) {
       console.log(res, 55444)
       if (res.data.data.length != 0) {
         that.setData({ 

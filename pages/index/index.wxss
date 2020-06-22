@@ -126,3 +126,20 @@
   padding: 36rpx 0;
   text-align: center;
 }
+
+.wudaiban{
+ display: flex;
+  flex-direction: column;
+    align-items: center;
+  justify-content: center；
+}
+.wudaiban image{
+  width: 244rpx;
+  height: 200rpx;
+  margin:240rpx 0 20rpx 0; 
+}
+.wudaiban text{
+   opacity: 0.6;
+  font-size: 26rpx;
+  color: #000000;
+}

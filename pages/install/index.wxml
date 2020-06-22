@@ -31,7 +31,12 @@
                         <view class="li_r">
                             <text wx:if="{{ item.auditStatus == 'PASS' && !item.auditCode }}" class="grey">已下线</text>
                             <text wx:elif="{{ item.auditStatus == 'REFUSED' }}" class="red" catchtap="agenApply" id='{{ item.id }}'>再次提交</text>
-                            <image src="../../utils/images/gengduo.png"></image>
+                              <text wx:if="{{item.auditStatus=='NONE'}}"><!-- 未审核 -->提交审核</text>
+                             <text wx:elif="{{item.auditStatus=='PENDING'}}"> <!-- 已提交 -->审核中</text>
+                             <text wx:elif="{{item.auditStatus=='PASS'}}"><!-- 通过 --><block wx:if='{{item.status=="DISABLED"}}'>上线房源</block><block wx:else>下线房源</block> </text>
+                             <text wx:elif="{{item.auditStatus=='REFUSED'}}"> <!-- 拒绝 -->重新提交</text>
+                             <text wx:else><!-- 其他 --></text>
+                             <image src="../../utils/images/gengduo.png"></image>
                         </view>
                     </view>
                 </view>

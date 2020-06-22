@@ -19,7 +19,7 @@
           </picker>
         </view>
         <view class="list">
-          <view class="name">预订人<image src="../../utils/images/star.png"></image></view>
+          <view class="name">预订人</view>
           <view class="value">
             <input placeholder="请输入预订人姓名" name='ownerName' value='{{ detail.ownerName }}'></input>
           </view>

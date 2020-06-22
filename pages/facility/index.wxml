@@ -30,7 +30,7 @@
     </view>
   </view>
   <view class="facility_container" style="padding-top: {{ headerHeight}}px; min-height: calc(100vh - {{ headerHeight }}px);height: calc(100vh - {{ headerHeight }}px); height: {{ containerHeight }}">
-    <scroll-view scroll-y="{{true}}" style="height: 100%" bindscrolltolower="scrollbot" lower-threshold='100'>
+    <scroll-view scroll-y="{{true}}" bindscrolltolower="scrollbot" lower-threshold='100'>
       <view class="lists" wx:for='{{ dataList }}'>
         <view class="list" id='{{ item.id }}' bindtap="handleDetail" data-roomNo='{{ item.roomName }}' data-roomId="{{ item.roomId }}">
           <view class="list_container">

@@ -45,7 +45,7 @@
               <view class="list_title">
                 <view class="list_l"><text>{{ item.roomName }}</text></view>
                 <view class="list_r">
-                  <text class="{{ active == 1 ? 'deepgreen' : active == 2 ? 'deepyellow' : 'grey' }}">{{ active == 1 ? '预定中' : active == 2 ? '在住中' : '已离店' }}</text>
+                  <text class="{{ active == 1 ? 'deepgreen' : active == 2 ? 'deepyellow' : 'grey' }}">查看详情</text>
                   <image wx:if='{{ active == 3 }}' src="../../utils/images/gengduo.png"></image>
                 </view>
               </view>
@@ -68,6 +68,7 @@
                   <view>
                     <button wx:if='{{ active == 1 }}' catchtap="orderCancle" id='{{ item.id }}'>取消</button>
                     <button wx:if='{{ active == 1 }}' catchtap="edit" id='{{ item.id }}'>编辑</button>
+                     <button wx:if='{{ active == 2 }}' class="xuzhu" catchtap="extend" id='{{ item.id }}'>续住</button>
                     <button wx:if='{{ active == 2 }}' catchtap="checkOut" id='{{ item.id }}'>退房</button>
                   </view>
                 </view>

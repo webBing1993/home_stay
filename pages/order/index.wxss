@@ -205,6 +205,11 @@
   border: 1px solid #F86B82;
   color: #F86B82;
 }
+.order .lists .list .list_container .btn-area button.xuzhu{
+  background: #EAEFF4;
+  border: 1px solid #4378BA;
+  color: #4378BA;
+}
 
 .order .lists .list .list_container .btn-area button:last-of-type,
 .order .lists .list .list_container .btn-area button:only-of-type {
@@ -212,6 +217,7 @@
   border: 1px solid #4378BA;
   color: #4378BA;
 }
+
 
 .order .noMsg {
   position: fixed;

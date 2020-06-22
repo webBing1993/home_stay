@@ -1,0 +1,58 @@
+<navbar
+  back="true"
+  title="续住"
+>
+</navbar>
+<view class="addOrder" style="padding-top: {{ navBarHeight }}px">
+  <view class="h20"></view>
+  <form bindsubmit="saveBtn">
+    <view class="order_container">
+      <view class="lists ">
+        <view class="list listleft">
+          <view class="name">房源名称：</view>
+         <view class="value">
+            <label>{{ roomInfo.roomGroupName }}</label>
+          </view>
+        </view>
+        <view class="list listleft">
+          <view class="name">房间号：</view>
+          <view class="value">
+            <label>{{ roomInfo.roomName }}</label>
+          </view>
+        </view>
+        <view class="list listleft">
+          <view class="name">住离时间：</view>
+          <view class="value">
+           <label>{{ roomInfo.predictCheckinTime }}{{ roomInfo.text ? roomInfo.text  : '' }} - {{ roomInfo.predictCheckoutTime }} {{ roomInfo.day }}晚</label>
+          </view>
+        </view>
+         <view class="jianju"></view>
+       <view class="list listleft">
+          <view class="name">续住日期：</view>
+          <view class="value">
+          <picker  mode="date" value="{{ roomInfo.predictExtendTime }}" start="2020-01-01" end="2050-01-01" name='predictExtendTime' bindchange="bindDateChange" id='2'>
+              <view class="picker">
+               {{roomInfo.predictExtendTime}}
+              </view>
+               <image src="../../utils/images/gengduo.png"></image>
+            </picker>
+          </view>
+        </view>
+         <view class="list listleft">
+          <view class="name">离店时间：</view>
+          <view class="value">
+          <picker mode="time" value="{{ roomInfo.outTime }}" name='outTime' start="00:00" end="23:59" bindchange="bindTimeChange" id="1">
+                <view class="picker">
+               {{ roomInfo.outTime }}
+                </view>
+                 <image src="../../utils/images/gengduo.png"></image>
+              </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="btn-area">
+      <button formType="submit" bindtap="bindSave" loading="{{ loading }}">保存</button>
+    </view>
+  </form>
+</view>

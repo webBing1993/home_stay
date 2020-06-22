@@ -81,6 +81,13 @@ Page({
     utils.requestFun('/roomGroup/search', 10, that.data.page, data, 'GET', function(res) {
       wx.stopPullDownRefresh();
       let dataList = res.data.data;
+      //如果没有房源直接跳转到新增房源界面
+      // if (dataList == null || dataList.length==0){
+      //   wx.navigateTo({
+      //     url: '../installDetail/index'
+      //   });
+      //   return;
+      // }
       if (dataList.length != 0) {
         dataList.forEach(item => {
           item.auditTime = utils.datetimeparse(item.auditTime, 'yy/MM/dd hh:mm');

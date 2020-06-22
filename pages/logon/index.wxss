@@ -2,7 +2,7 @@
 @import '../../utils/common.wxss';
 
 .logon {
-    /* padding-top: 64px; */
+    padding-top: 64px;
 }
 
 .logon .lists {

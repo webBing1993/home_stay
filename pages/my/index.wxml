@@ -4,6 +4,7 @@
   title="我的"
 >
 </navbar>
+<add-tips custom="true" />
 <view class="my" style="padding-top: {{ navBarHeight }}px">
     <view class="h20"></view>
     <view class="myAccount">

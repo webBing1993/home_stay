@@ -150,7 +150,7 @@ Page({
   // 获取所有可用房源
   getRoomGroupList: function () {
     let that = this;
-    utils.requestFun('/roomGroup/active', ' ', ' ', ' ', 'GET', function(res) {
+    utils.requestFun('/roomGroup/roomOrder/active', ' ', ' ', ' ', 'GET', function(res) {
       that.setData({ 
         region: res.data.data, 
       });
@@ -171,7 +171,7 @@ Page({
   // 获取所有房间列表
   getroomList: function () {
     let that = this;
-    utils.requestFun('/roomGroup/'+that.data.roomGroupId+'/room', ' ', ' ', ' ', 'GET', function(res) {
+    utils.requestFun('/roomGroup/roomOrder/'+that.data.roomGroupId+'/room', ' ', ' ', ' ', 'GET', function(res) {
       if (that.data.roomId) {
         let roomNum = [];
         res.data.data.forEach((item, index) => {
@@ -215,14 +215,14 @@ Page({
     console.log(e);
     let that = this;
     let detail = e.detail.value;
-    if (detail.ownerName === '') {
-      wx.showModal({
-        title: '提示',
-        content: '请输入预订人姓名',
-        showCancel: false
-      });
-      return;
-    }
+    // if (detail.ownerName === '') {
+    //   wx.showModal({
+    //     title: '提示',
+    //     content: '请输入预订人姓名',
+    //     showCancel: false
+    //   });
+    //   return;
+    // }
     if (detail.ownerMobile === '') {
       wx.showModal({
         title: '提示',
