@@ -158,10 +158,10 @@
   </view> -->
   <view class="savebutton" wx:elif='{{ editAdd == 2 }}'>
     <!-- <button wx:if='{{ status_ }}' bindtap="resetSubmit">重新提交</button> -->
-    <button wx:if='{{ status_ }}' bindtap="onLine">上线</button>
+    <button wx:if='{{ status_ }}' bindtap="onLine">保存并上线</button>
 
     <button wx:if='{{ !status_ }}' bindtap="downLine">下线</button>
-    <button wx:if='{{ !status_ }}' bindtap="submit" id='2' loading="{{ loading }}">保存</button>
+    <!-- <button wx:if='{{ status_ }}' bindtap="submit" id='2' loading="{{ loading }}">保存</button> -->
   </view>
 
   <mp-dialog title="提示" show="{{ dialogShow }}" bindbuttontap="tapDialogButton" buttons="{{ buttons }}">

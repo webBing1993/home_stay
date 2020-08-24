@@ -49,6 +49,7 @@ Page({
     buttons: [{text: '取消'}, {text: '确定'}],
     id: null,
     showTemplate: false,      // 显示模板
+    onlineShow: false,
   },
 
   /**
@@ -302,6 +303,11 @@ Page({
 
   // 上线
   onLine: function (e) {
+    this.setData({onlineShow: true});
+    this.submit();
+  },
+
+  onLineFun: function () {
     let that = this;
     utils.requestFun('/roomGroup/'+that.data.id+'/online', ' ', ' ', ' ', 'PUT', function(e) {
       console.log(e);
@@ -429,7 +435,7 @@ Page({
         loading: false
       });
     }, 30000)
-    if (e.currentTarget.id) {
+    if ((e && e.currentTarget.id) || that.data.onlineShow) {
       console.log('that.data.detail', that.data.detail);
       if (that.data.detail.keeperPhone === '' || that.data.detail.keeperPhone == null) {
         wx.showModal({
@@ -504,27 +510,34 @@ Page({
       console.log('data1', data1)
       utils.requestFun('/roomGroup/'+that.data.id+'/fill', ' ', ' ', data1, 'PUT', function(res) {
         console.log(res, 65556);
-        wx.showToast({
-          title: '房源信息补充成功',
-          icon: 'none',
-          duration: 2000
-        })
-        that.setData({
-          loading: false
-        });
-        setTimeout(() => {
-          let pages = getCurrentPages(); //页面栈
-          let beforePage = pages[pages.length - 2];
-          wx.navigateBack({
-            delta: 1,    // 返回上一级页面。
-            success: function() {
-              console.log('beforePage', beforePage)
-              if (beforePage.route == 'pages/install/index') {
-                beforePage.onLoad() //这个函数式调用接口的函数
-              }
-            }
+        if(that.data.onlineShow) {
+          that.setData({
+            onlineShow: false
+          });
+          that.onLineFun();
+        }else {
+          wx.showToast({
+            title: '房源信息补充成功',
+            icon: 'none',
+            duration: 2000
           })
-        }, 1500);
+          that.setData({
+            loading: false
+          });
+          setTimeout(() => {
+            let pages = getCurrentPages(); //页面栈
+            let beforePage = pages[pages.length - 2];
+            wx.navigateBack({
+              delta: 1,    // 返回上一级页面。
+              success: function() {
+                console.log('beforePage', beforePage)
+                if (beforePage.route == 'pages/install/index') {
+                  beforePage.onLoad() //这个函数式调用接口的函数
+                }
+              }
+            })
+          }, 1500);
+        }
       });
     }else {
       console.log('data', data);
